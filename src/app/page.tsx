@@ -1,9 +1,30 @@
+import { SiteHeader } from "@/components/SiteHeader";
+import { HeroSection } from "@/components/HeroSection";
+import { NarrativeSection } from "@/components/NarrativeSection";
+import { ProductsSection } from "@/components/ProductsSection";
+import { DwiArchiveSection } from "@/components/DwiArchiveSection";
+import { ConsultancyTiersSection } from "@/components/ConsultancyTiersSection";
+import { TenderWaitlistSection } from "@/components/TenderWaitlistSection";
+import { SiteFooter } from "@/components/SiteFooter";
+import { DepthGauge } from "@/components/DepthGauge";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <p className="text-muted-foreground">
-        Clone target not yet built. Run <code className="font-mono text-foreground">/clone-website</code> to start.
-      </p>
-    </main>
+    <>
+      <SiteHeader />
+      <main>
+        <HeroSection />
+        {/* One continuous ocean-depth field for everything below the hero */}
+        <div className="relative bg-ocean-depth text-[var(--bravo-cream)]">
+          <DepthGauge />
+          <NarrativeSection />
+          <ProductsSection />
+          <DwiArchiveSection />
+          <ConsultancyTiersSection />
+          <TenderWaitlistSection />
+          <SiteFooter />
+        </div>
+      </main>
+    </>
   );
 }

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Water Intelligence — Issue 02 · The Map Changed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A1A28; --navy2:#0E2536; --cream:#F5F2E9; --cream2:#EFEBDD;
+    --ink:#1B2733; --muted:#5C6B78; --accent:#C8772E; --blue:#5B93C4;
+    --line:#D8D2C2; --hi:#F6E9D7; --med:#DCE6EE; --watch:#F1E0CE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#3a3a3a;font-family:'Newsreader',Georgia,serif;color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .page{max-width:920px;margin:0 auto;background:var(--cream);padding:64px 72px;position:relative;overflow:hidden;}
+  .page.dark{background:var(--navy);background-image:radial-gradient(120% 80% at 80% 10%,#16334a 0%,var(--navy) 55%);color:var(--cream);}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;font-size:11px;}
+  .disp{font-family:'Fraunces',Georgia,serif;font-weight:400;line-height:1.04;letter-spacing:-.01em;}
+  .disp i{font-style:italic;color:var(--blue);}
+  h1.disp{font-size:62px;} h2.disp{font-size:42px;} h3.disp{font-size:27px;}
+  .accent{color:var(--accent);}
+  .runhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.12);padding-bottom:10px;margin-bottom:30px;}
+  .dark .runhead{border-color:rgba(255,255,255,.14);}
+  .kicker{color:var(--accent);margin-bottom:14px;}
+  p{margin-bottom:15px;font-size:17px;}
+  .lead{font-size:20px;line-height:1.5;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:42px;}
+  .rule{height:3px;background:var(--ink);margin:16px 0 22px;}
+  .dark .rule{background:var(--cream);}
+  .label{color:var(--accent);margin-bottom:8px;}
+  .quote{border-left:3px solid var(--accent);padding-left:20px;font-family:'Fraunces',serif;font-style:italic;font-size:24px;line-height:1.32;color:var(--ink);margin:6px 0;}
+  .dark .quote{color:var(--cream);}
+  .pull{font-family:'Fraunces',serif;font-size:27px;line-height:1.25;color:var(--ink);margin:16px 0;}
+  .src{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-top:18px;}
+  .kbbox{background:#10283b;color:var(--cream);border-radius:8px;padding:20px 22px;margin:8px 0;}
+  .kbbox .h{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:10px;}
+  .kbbox p{font-size:13.5px;color:#cdd9e2;margin-bottom:0;}
+  .statbox{border:1px solid var(--line);border-radius:8px;padding:14px;text-align:center;}
+  .statbox .n{font-family:'Fraunces',serif;font-size:40px;line-height:1;color:var(--accent);}
+  .statbox .c{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4;}
+  .cta{background:var(--navy);color:var(--cream);border-radius:8px;padding:18px 22px;margin:18px 0;display:flex;gap:16px;align-items:center;}
+  .cta .pip{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;}
+  .cta h4{font-family:'Fraunces',serif;font-weight:500;font-size:18px;margin:4px 0 5px;color:var(--cream);}
+  .cta p{font-size:13px;color:#BFD0DC;margin:0;}
+  .cta .arrow{margin-left:auto;color:var(--accent);font-size:24px;}
+  .footer{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:36px;padding-top:12px;border-top:1px solid var(--line);}
+  .dark .footer{color:#7e93a3;border-color:rgba(255,255,255,.12);}
+  ul.clean{list-style:none;} ul.clean li{padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px;}
+  ul.clean li:before{content:"▶";color:var(--accent);font-size:9px;margin-right:10px;vertical-align:middle;}
+  .feat{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:4px 10px;}
+  .read{background:var(--cream2);border-radius:8px;padding:20px 22px;margin:16px 0;}
+  .read .h{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:10px;}
+  .read p{font-size:14.5px;margin-bottom:0;}
+  .tl{position:relative;margin:16px 0 6px;padding-top:8px;}
+  .tl .axis{height:2px;background:var(--line);position:relative;margin:34px 0 0;}
+  .tl .pt{position:absolute;top:-7px;width:12px;height:12px;border-radius:50%;background:var(--accent);transform:translateX(-50%);}
+  .tl .yr{position:absolute;top:-32px;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink);font-weight:600;}
+  .tl .cap{position:absolute;top:16px;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--muted);text-align:center;width:110px;text-transform:uppercase;}
+  table.dt{width:100%;border-collapse:collapse;font-size:13.5px;}
+  table.dt td{padding:10px 8px 10px 0;border-bottom:1px solid rgba(255,255,255,.1);vertical-align:top;}
+  table.dt td:first-child{color:#8aa0b0;width:36%;}
+  table.dt td b{color:var(--cream);}
+  @media(max-width:760px){.page{padding:36px 24px;}.two{grid-template-columns:1fr;gap:22px;}h1.disp{font-size:40px;}h2.disp{font-size:30px;}}
+  @media print{
+    body{background:#fff;}
+    .page{margin:0;page-break-after:always;width:100%;height:1240px;overflow:hidden;}
+    .page:last-child{page-break-after:auto;}
+  }
+  @page{size:920px 1240px;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page dark" style="min-height:1180px;display:flex;flex-direction:column;">
+  <svg viewBox="0 0 920 1180" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;opacity:.5;">
+    <g fill="none">
+      <path d="M0,300 C230,270 470,330 700,300 920,278 920,300 920,300" stroke="#19374e" stroke-width="1"/>
+      <path d="M0,470 C260,440 500,510 760,470 920,448 920,470 920,470" stroke="#173044" stroke-width="1"/>
+      <path d="M0,720 C240,690 520,760 780,720 920,700 920,720 920,720" stroke="#142a3c" stroke-width="1"/>
+      <path d="M0,980 C300,950 560,1020 820,980 920,962 920,980 920,980" stroke="#112434" stroke-width="1"/>
+    </g>
+    <g font-family="'IBM Plex Mono',monospace" font-size="10" letter-spacing="1">
+      <text x="14" y="296" fill="#41607a">-200M</text>
+      <text x="14" y="466" fill="#3a576f">-800M</text>
+      <text x="14" y="716" fill="#33536b">-1.8KM</text>
+      <text x="14" y="976" fill="#2c4459">-3.0KM</text>
+    </g>
+  </svg>
+
+  <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="border:1px solid var(--accent);color:var(--accent);width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:18px;">B</div>
+      <span class="mono" style="color:var(--cream);letter-spacing:.22em;">Bravo Energy</span>
+    </div>
+    <div class="mono accent" style="text-align:right;line-height:2;">
+      Issue No. 02<br><span style="color:#8aa0b0;">August 2026</span><br><span style="color:#8aa0b0;">Monthly Report</span>
+    </div>
+  </div>
+
+  <div style="position:relative;margin-top:150px;">
+    <div class="mono accent" style="letter-spacing:.26em;margin-bottom:22px;">Deep Water Intelligence</div>
+    <h1 class="disp" style="font-size:92px;">Brussels sanctioned<br>Indonesia. The<br>oil is still <i>moving</i>.</h1>
+    <p class="lead" style="color:#c7d5df;max-width:560px;margin-top:30px;">Three stories on how the shadow fleet — the world's most adaptive supply chain — is rewriting the map of energy geopolitics, one sanctioned terminal at a time.</p>
+  </div>
+
+  <div style="position:relative;margin-top:auto;padding-top:60px;border-top:1px solid rgba(255,255,255,.14);">
+    <div class="mono" style="color:#8aa0b0;line-height:2.2;">
+      01 · The price cap that built its own enemy<br>
+      02 · The hub and the chokepoint<br>
+      03 · The system at the seams
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ STORY 01 — PAGE A ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Map Changed</span><span class="feat">Story 01</span></div>
+  <div class="kicker mono">Story One · The price cap</div>
+  <h2 class="disp">The price cap that built its own <i>enemy</i>.</h2>
+  <p class="lead" style="max-width:660px;margin-bottom:20px;">The G7's $60 ceiling on Russian oil was the most sophisticated financial weapon ever aimed at a commodity market. It also specified, almost to the clause, exactly what kind of parallel system would emerge to replace it.</p>
+  <div class="rule"></div>
+  <div class="two">
+    <div>
+      <p>The price cap ran through the infrastructure that clears every barrel sold globally: Western insurance, the bill of lading, and dollar-denominated banking. Comply or find yourself outside the system. The mechanism was tight. The theory was elegant.</p>
+      <p>It missed one thing: sanctions create a vacuum, and a vacuum creates a market. The moment the discount between Russian crude and Brent widened to $25 at its peak, the arbitrage was enormous. One million barrels at $25 discount is $25 million per voyage. Against a tanker bought for $15 million — rescued from the scrapyard where its metal would have fetched five or six — the payback is two trips. The risk-reward was not close.</p>
+      <p>Russian oil revenues fell, but not by the margin intended. The oil kept moving. India and China kept buying. The cap created a two-tier market. Moscow funded the war at a lower margin than it wanted. Brussels could call it a partial win. The math agrees: partial.</p>
+    </div>
+    <div>
+      <p>What followed was a shadow fleet built not in secret but in plain sight. Old tankers flew flags of convenience — Bolivia, Panama, Gabon — in countries with no navies to enforce maritime law. Non-Western insurers covered them. AIS transponders went off during transfers in international waters. The bill of lading read "STS — international waters — on orders." Technically valid. Compliance never flagged what was technically compliant.</p>
+      <p>The shadow fleet did not break the Western tracking system. It gamed the shadows it cast — the space between "technically legitimate" and "obviously compliant" that is the natural habitat of any parallel market. Every piece of monitoring infrastructure the West built to identify shadow vessels was originally designed for safety reasons: post-Titanic lifeboats, post-Exxon Valdez transponders, post-9/11 vessel registries. The fleet found the seams in all of it.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Story 01 · The Price Cap</span><span>01</span></div>
+</section>
+
+<!-- ============ STORY 01 — PAGE B ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Map Changed</span><span class="feat">Story 01 · cont.</span></div>
+  <div class="two">
+    <div>
+      <h3 class="disp">The scrapping number that tells the whole story.</h3>
+      <p style="margin-top:12px;">Before sanctions, the industry scrapped around 35 old tankers a year — vessels at the end of their economic life, run aground at Alang or Chittagong and cut apart for $5–6 million in scrap metal. After the Russian oil sanctions, that number collapsed. Only ten tankers have been scrapped in four years. The others were bought instead, because someone decided the gap between buyout and scrap value was worth the risk of running sanctioned crude.</p>
+      <p>Old tankers that were a liability became an asset precisely because they were expendable. The shadow fleet is not a criminal conspiracy. It is a rational response to price signals — the same logic that drives any commodity arbitrage, applied to the most liquid commodity on earth.</p>
+      <p>You can list individual vessels. The EU has designated 632. The fleet grows faster than the list, because the price signal that built it hasn't changed.</p>
+      <div class="pull">Ten tankers scrapped in four years. The other 25-a-year are moving Russian oil instead.</div>
+    </div>
+    <div>
+      <div class="kbbox">
+        <div class="h">Key information</div>
+        <p><b>$60/bbl</b> — G7 price cap on Russian oil, December 2022.<br><br><b>$25/bbl</b> peak discount between Urals and Brent that funded the fleet's economics.<br><br><b>35/year</b> tankers scrapped before 2022. <b>10 total</b> in the four years since. The rest joined the fleet.<br><br><b>632 vessels</b> designated by EU under the 20th sanctions package, April 2026. The fleet grows faster.<br><br><b>€464M/day</b> — Russian fossil fuel export revenues still flowing; seaborne crude alone €156M/day.</p>
+      </div>
+      <div class="read">
+        <div class="h">The read</div>
+        <p>The price cap did not suppress Russian oil. It created a floor on the discount buyers demand for handling it — and that discount, embedded in every cargo, is the shadow fleet's entire business model.</p>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid var(--line);margin-top:24px;padding-top:14px;" class="mono accent">Next · the infrastructure that made it work — and what happens when it's taken away →</div>
+  <div class="footer"><span>Story 01 · The Price Cap</span><span>02</span></div>
+</section>
+
+
+<!-- ============ STORY 02 — PAGE A ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Map Changed</span><span class="feat">Story 02</span></div>
+  <div class="kicker mono">Story Two · Infrastructure</div>
+  <h2 class="disp">The hub and the <i>chokepoint</i>.</h2>
+  <p class="lead" style="max-width:660px;margin-bottom:20px;">Ship-to-ship transfer has been the shadow market's core technique since Marc Rich ran oil to apartheid South Africa. What was new at Karimun was the location — forty kilometres from Singapore — and what changed when the EU took it away.</p>
+  <div class="rule"></div>
+  <div class="two">
+    <div>
+      <p>The shadow fleet's problem is not the ocean. You need to be within fifteen miles just to see a tanker as a dot on the horizon. There is nothing technically illegal about transferring oil between ships in international waters. The problem is the port: at some point the cargo needs to land somewhere with compliance requirements, insurance coverage, and relationships with Western banks.</p>
+      <p>The transfer hub solves this. A shadow tanker hands cargo to a "clean" vessel — one with no documented Russian connection — before the final leg. The clean ship proceeds to Rotterdam or Jamnagar with a bill of lading that reads only "STS — international waters — on orders." Technically valid. The compliance department never flags it.</p>
+      <p>Karimun Oil Terminal, in Indonesia's Riau Islands, was close to the ideal. Forty kilometres from Singapore. Direct Malacca Strait access. Deep water. A jurisdiction nominally outside the Western perimeter. By spring 2025, Russian oil was 100% of its throughput — 500,000 tonnes in the first four months of the year alone, loaded at Ust-Luga on the Baltic.</p>
+    </div>
+    <div>
+      <p>The EU's 20th sanctions package, adopted April 23, 2026, designated it. Not as a sanctioned legal entity — a distinction the operator challenged — but as prohibited infrastructure. The operational effect was identical: shadow fleet vessels could no longer use the terminal without exposing service providers to EU sanctions. The hub closed.</p>
+      <p>What happened next is the story of energy infrastructure in miniature. The cargo didn't stop. It rerouted through the Cape of Good Hope — eighteen additional days, three to five dollars per barrel in added freight cost. India and China absorbed part. Russia absorbed part. The oil reached its destination, slower and more expensively than before.</p>
+      <p>The West had, for the first time, extended its sanctions enforcement beyond Russia and into neutral ASEAN territory. Jakarta said the designation was unfair. The EU said the logic was inescapable. Neither statement changed the oil's destination.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Story 02 · The Hub</span><span>03</span></div>
+</section>
+
+<!-- ============ STORY 02 — PAGE B ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Map Changed</span><span class="feat">Story 02 · cont.</span></div>
+  <div class="two">
+    <div>
+      <h3 class="disp">You can sanction the node. You can't sanction the function.</h3>
+      <p style="margin-top:12px;">Energy infrastructure teaches a consistent lesson: you can close a specific facility, but the function it served migrates. A pipeline is fixed — destroy a segment and the flow stops. A transfer hub is different. It requires only two things: a tolerant port jurisdiction and an operator willing to handle the cargo. Both are available, in abundance, across the Indian Ocean rim.</p>
+      <p>Three new STS clustering points have been identified by vessel intelligence firms since Karimun's closure — Gulf of Oman anchorages, Malaysian offshore waters, and at least one location in the eastern Mediterranean. The next hub will be designated too. And the one after that. Each designation adds friction and cost to the shadow fleet's operation. None has yet broken it, because the price signal that built the fleet — the discount between Russian crude and what India and China are willing to pay — remains intact.</p>
+      <div class="pull">The function migrates. The fleet adapts. The oil moves.</div>
+    </div>
+    <div>
+      <div class="kbbox">
+        <div class="h">Key information — Karimun before and after</div>
+        <p><b>Location:</b> Riau Islands, Indonesia — 40 km from Singapore, Malacca Strait access.<br><br><b>Peak throughput:</b> 500,000 tonnes Russian fuel oil in Jan–Apr 2025 alone. Share: 100% by spring 2025.<br><br><b>Designated:</b> EU 20th package, 23 April 2026. First non-Russian port ever listed.<br><br><b>Rerouting cost:</b> +18 days via Cape of Good Hope; +$3–5/bbl freight premium <span style="color:#8aa0b0;">[ill.]</span><br><br><b>Replacement hubs:</b> three new STS clustering zones identified in Indian Ocean by vessel intelligence firms post-designation.</p>
+      </div>
+      <div class="read">
+        <div class="h">The read</div>
+        <p>For any operator, port authority, or logistics provider in SE Asia: Karimun is a precedent, not a one-off. The EU 21st package is in preparation. Elevated shadow tanker AIS clustering around any terminal is now a sanctions risk signal.</p>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid var(--line);margin-top:24px;padding-top:14px;" class="mono accent">Next · what happens to the systems the oil flows through →</div>
+  <div class="footer"><span>Story 02 · The Hub</span><span>04</span></div>
+</section>
+
+
+<!-- ============ STORY 03 — PAGE A ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Map Changed</span><span class="feat">Story 03</span></div>
+  <div class="kicker mono">Story Three · Geopolitics</div>
+  <h2 class="disp">The system at the <i>seams</i>.</h2>
+  <p class="lead" style="max-width:660px;margin-bottom:20px;">The Karimun designation was not primarily about oil enforcement. It was about jurisdiction — and the signal it sent to Southeast Asia is being processed very differently than Brussels intended.</p>
+  <div class="rule"></div>
+  <div class="two">
+    <div>
+      <p>Indonesia did not vote to sanction Russia. Its government did not design a terminal to serve the EU's foreign policy objectives. Yet on April 23, 2026, Brussels designated a facility on Indonesian soil as prohibited infrastructure in a conflict Indonesia never joined. Jakarta's response was measured but clear: unfair and jurisdictionally overreaching.</p>
+      <p>The EU's legal basis is technically defensible. It restricts EU-regulated entities — insurers, banks, shipping companies — from servicing the terminal. That is a restriction on European actors, not on Indonesia itself. In practice, when the infrastructure connecting a terminal to global shipping finance runs through EU rules, the distinction carries no operational weight.</p>
+      <p>This matters because Southeast Asia is where the next decade of deepwater gas investment sits. Malaysia and Indonesia hold projects requiring Western capital, technology, and contractors. Anything that raises the political temperature around Western-ASEAN commercial relationships changes how those projects are structured and awarded.</p>
+    </div>
+    <div>
+      <p>The Petrodollar framework names the deeper mechanism. The dollar-denominated financial system clears energy trade globally not because other countries chose it on merit, but because inertia and network effects made USD settlement the path of least resistance. The same infrastructure that clears every cargo can also be turned against any party whose behaviour the West wants to change.</p>
+      <p>Russia and China understood this in 2014 and started building alternatives: BRICS settlement frameworks, renminbi oil contracts, non-Western insurance chains. All were marginal until the sanctions escalation gave them urgency. Each new designation — each reminder that using Western finance exposes a sovereign to foreign policy conditions — adds one more government to the list of those asking whether the system's convenience offsets its political cost.</p>
+      <p>The Karimun designation gave that question to Southeast Asia. The region did not have a firm answer before April 2026. It is forming one now.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Story 03 · The System</span><span>05</span></div>
+</section>
+
+<!-- ============ STORY 03 — PAGE B ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Map Changed</span><span class="feat">Story 03 · cont.</span></div>
+  <div class="two">
+    <div>
+      <h3 class="disp">The convergence — what all three stories are saying.</h3>
+      <p style="margin-top:12px;">Dalio's reading of how empires decline applies directly here. Financial claims are brittle: they depend on counterparties accepting the system. Physical infrastructure endures. The empire that controls the physical layer of trade retains leverage long after its financial claims are disputed. The West controls the financial layer of energy. It does not control the geography — the sea lanes, the transfer hubs, or the fields that sit outside every chokepoint.</p>
+      <p>The shadow fleet exploits that asymmetry. The West's response — sanctions, designations, vessel listings — operates in the financial layer. The oil operates in the physical one. Each sanction tightens the screws one turn. The oil finds another route, another hub, another jurisdiction. The financial weapon is real but it is not decisive, because the physical layer keeps adapting underneath it.</p>
+      <p>For the offshore energy industry, the actionable signal is specific: watch how Indonesian and Malaysian governments respond in their next deepwater licensing rounds. A shift in mandatory local-partner ownership, concession terms, or contractor qualification criteria is the earliest indicator that the Karimun designation changed the investment climate — not dramatically, but permanently.</p>
+      <div class="pull">The West controls the financial layer. It does not control the geography underneath it.</div>
+    </div>
+    <div>
+      <div class="kbbox">
+        <div class="h">Key information — ASEAN at stake</div>
+        <p>Projects requiring Western capital and contractors in jurisdictions now recalibrating their relationship with Western financial rules:<br><br><b>Lang Lebah Ph.2</b> — Malaysia, PTTEP/Petronas, $4.2 bn, pre-FID<br><br><b>Andaman South</b> — Indonesia, Harbour Energy, $0.9 bn, FEED<br><br><b>Philippines GEA-5</b> — 3.3 GW offshore wind, region's first dedicated auction, awards 2026<br><br><b>APAC wind pipeline</b> to 2034: 43.7 GW, $61 bn EPCI spend (Westwood)</p>
+      </div>
+      <div class="read">
+        <div class="h">The read</div>
+        <p>Watch Jakarta's and Kuala Lumpur's next deepwater licensing rounds. A 5-point shift in mandatory local-partner ownership is more consequential to the long-term bid environment than any single FID.</p>
+      </div>
+      <div class="cta" style="margin-top:16px;">
+        <div>
+          <div class="pip">Bravo Experts Network</div>
+          <h4>Need a read on ASEAN investment conditions?</h4>
+          <p>Connect with a Southeast Asia upstream or contracts specialist. bravoenergy.co/experts</p>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Story 03 · The System</span><span>06</span></div>
+</section>
+
+
+<!-- ============ DOSSIER ============ -->
+<section class="page dark">
+  <div class="runhead"><span class="mono" style="color:#8aa0b0;">Deep Water Intelligence · The Map Changed</span><span class="mono accent">★ Dossier</span></div>
+  <div class="kicker mono">Dossier</div>
+  <h2 class="disp" style="color:var(--cream);">Karimun Oil <i>Terminal</i>.</h2>
+  <p class="lead" style="color:#c7d5df;max-width:600px;margin-bottom:24px;">The facility that turned a price cap into a geopolitical incident — what it was, what it did, what its designation signals for every neutral port in the region.</p>
+  <div class="two">
+    <div>
+      <table class="dt">
+        <tbody>
+          <tr><td>What it is</td><td style="color:#cdd9e2;">Ship-to-ship oil transfer terminal, Riau Islands, Indonesia. Operated by PT Oil Terminal Karimun. Located 40 km from Singapore with direct Malacca Strait access.</td></tr>
+          <tr><td>Peak role</td><td style="color:#cdd9e2;"><b>100% Russian oil</b> share of throughput by spring 2025. Key handoff point for fuel oil from Ust-Luga bound for Asian refineries.</td></tr>
+          <tr><td>The number</td><td style="color:#cdd9e2;"><b>500,000 tonnes</b> of Russian fuel oil processed in January–April 2025 alone.</td></tr>
+          <tr><td>Designated</td><td style="color:#cdd9e2;">EU 20th package, 23 April 2026. <b>First non-Russian port ever listed</b> as prohibited infrastructure.</td></tr>
+          <tr><td>Jakarta's response</td><td style="color:#cdd9e2;">Denied sanctioned-entity status. Indonesian government challenged EU jurisdictional reach into ASEAN sovereign territory.</td></tr>
+          <tr><td>Watch</td><td style="color:#cdd9e2;">EU 21st package (in preparation) — whether it targets additional ASEAN terminals; Indonesia's posture in next deepwater licensing round.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="quote" style="color:var(--cream);border-color:var(--accent);font-size:21px;">"Brussels told Jakarta that proximity to Russia's oil supply chain — regardless of intent — has consequences. ASEAN didn't sign up for that rule."</div>
+      <p style="color:#c7d5df;font-size:14.5px;margin-top:18px;">Karimun is not a single incident. It is a precedent. The first time the West extended sanctions enforcement past its own perimeter into neutral ASEAN territory. The next hub will be designated. Each one moves the conversation further from Ukraine and closer to who controls the terms on which Southeast Asia participates in the global energy system.</p>
+      <div class="cta" style="background:#08151f;margin-top:16px;">
+        <div>
+          <div class="pip">Bravo Experts Network</div>
+          <h4>Exposure to SE Asia sanctions risk?</h4>
+          <p>We map shadow fleet adjacency risk for operators across the region. bravoenergy.co/experts</p>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span style="color:#7e93a3;">Dossier</span><span style="color:#7e93a3;">07</span></div>
+</section>
+
+
+<!-- ============ TWELVE NUMBERS ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Map Changed</span><span class="mono">August 2026</span></div>
+  <div class="kicker mono">The month in twelve numbers</div>
+  <h2 class="disp">August 2026 — the <i>data</i>.</h2>
+  <div class="rule"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+
+    <div class="statbox">
+      <div class="n">$97</div>
+      <div class="c">Brent approx. month-end (USD/bbl) — war premium back, Iran talks stalled <span style="color:var(--muted);">[ill. level]</span></div>
+    </div>
+    <div class="statbox">
+      <div class="n">632</div>
+      <div class="c">Shadow fleet vessels designated by EU, 20th package April 2026 <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+    <div class="statbox">
+      <div class="n">700+</div>
+      <div class="c">Shadow tankers operating globally; 96% older than 15 years <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+
+    <div class="statbox">
+      <div class="n" style="font-size:34px;">100%</div>
+      <div class="c">Russian oil's share of Karimun throughput by spring 2025 <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+    <div class="statbox">
+      <div class="n" style="font-size:30px;">€464M</div>
+      <div class="c">Russian fossil fuel export revenue per day; seaborne crude €156M/day <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+    <div class="statbox">
+      <div class="n">10</div>
+      <div class="c">Tankers scrapped in 4 years vs. ~35/year pre-2022 <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+
+    <div class="statbox">
+      <div class="n">+18</div>
+      <div class="c">Days added by Cape route vs. Malacca after Karimun closure <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+    <div class="statbox">
+      <div class="n" style="font-size:30px;">$13.5bn</div>
+      <div class="c">Subsea7 backlog Q1 2026 — rising through Brent's full swing <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+    <div class="statbox">
+      <div class="n" style="font-size:30px;">€43bn</div>
+      <div class="c">Combined backlog of proposed Saipem–Subsea7 merger, July 2026 <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+
+    <div class="statbox">
+      <div class="n">3.3</div>
+      <div class="c">GW in Philippines GEA-5, region's first dedicated offshore wind auction <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+    <div class="statbox">
+      <div class="n" style="font-size:30px;">$498k</div>
+      <div class="c">Drillship day rate approx. — indifferent to Brent volatility <span style="color:var(--muted);">[ill.]</span></div>
+    </div>
+    <div class="statbox">
+      <div class="n">20</div>
+      <div class="c">EU Russia sanctions packages; 21st in preparation <b style="display:block;color:var(--ink);">Real</b></div>
+    </div>
+
+  </div>
+  <div class="src">EU Council / EC Finance / HSF Kramer (package, Karimun, vessels) · IDN Financials (throughput) · CNBC / Wash. Post (fleet, scrapping) · Subsea7 / investing.com (backlog) · Fortune/ICE (Brent direction) · 4C Offshore / Philippine DOE (GEA-5) · Westwood (APAC wind). Items marked [ill.] are illustrative.</div>
+  <div class="footer"><span>Twelve Numbers</span><span>08</span></div>
+</section>
+
+
+<!-- ============ BRAVO OUTLOOK ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Map Changed</span><span class="mono">Bravo Outlook</span></div>
+  <div class="kicker mono">Bravo outlook · next 90 days</div>
+  <h2 class="disp">Six calls. <i>Ordered by conviction.</i></h2>
+  <p style="max-width:680px;font-size:16px;margin-bottom:6px;">Positions we would take today, graded in Issue 03.</p>
+  <div class="rule"></div>
+  <div class="two">
+
+    <div style="border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+        <h3 class="disp" style="font-size:19px;line-height:1.1;">Brent stays volatile: $85–105 range</h3>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;background:var(--hi);color:#9A5B12;white-space:nowrap;flex-shrink:0;">HIGH</span>
+      </div>
+      <p style="font-size:13.5px;margin:8px 0 0;color:var(--muted);">Iran ceasefire talks drive short-term swings; OPEC+ production discipline caps the ceiling. No sustained break in either direction.</p>
+    </div>
+
+    <div style="border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+        <h3 class="disp" style="font-size:19px;line-height:1.1;">Drillship day rates hold above $480k through Q4</h3>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;background:var(--hi);color:#9A5B12;white-space:nowrap;flex-shrink:0;">HIGH</span>
+      </div>
+      <p style="font-size:13.5px;margin:8px 0 0;color:var(--muted);">Supply-side constraint is structural; global floater utilization stays above 90% regardless of where Brent trades.</p>
+    </div>
+
+    <div style="border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+        <h3 class="disp" style="font-size:19px;line-height:1.1;">2026 global offshore FID pace outpaces 2025</h3>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;background:var(--med);color:#39576E;white-space:nowrap;flex-shrink:0;">MEDIUM</span>
+      </div>
+      <p style="font-size:13.5px;margin:8px 0 0;color:var(--muted);">25+ major deepwater FIDs sanctioned before year-end as the security premium drives long-cycle decisions independent of the spot price.</p>
+    </div>
+
+    <div style="border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+        <h3 class="disp" style="font-size:19px;line-height:1.1;">Asian LNG premium eases as summer cooling rolls off</h3>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;background:var(--med);color:#39576E;white-space:nowrap;flex-shrink:0;">MEDIUM</span>
+      </div>
+      <p style="font-size:13.5px;margin:8px 0 0;color:var(--muted);">JKM settles toward $10–11.50/MMBtu by September as seasonal cooling demand fades. European storage refill removes the TTF floor support.</p>
+    </div>
+
+    <div style="border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+        <h3 class="disp" style="font-size:19px;line-height:1.1;">Philippines GEA-5 draws more bids than capacity</h3>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;background:var(--med);color:#39576E;white-space:nowrap;flex-shrink:0;">MEDIUM</span>
+      </div>
+      <p style="font-size:13.5px;margin:8px 0 0;color:var(--muted);">The 3.3 GW on offer is oversubscribed — same pattern as Taiwan Phase 3. Financing at the feed-in tariff rate is the binding constraint.</p>
+    </div>
+
+    <div style="border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+        <h3 class="disp" style="font-size:19px;line-height:1.1;">ASEAN non-alignment signal strengthens</h3>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;padding:3px 7px;border-radius:3px;background:var(--watch);color:#9A5B12;white-space:nowrap;flex-shrink:0;">WATCH</span>
+      </div>
+      <p style="font-size:13.5px;margin:8px 0 0;color:var(--muted);">At least two ASEAN governments make formal statements distancing from Western extra-jurisdictional sanctions. Low conviction — high consequence if it materialises.</p>
+    </div>
+
+  </div>
+  <div class="footer"><span>Bravo Outlook</span><span>09</span></div>
+</section>
+
+
+<!-- ============ BACK COVER ============ -->
+<section class="page dark" style="min-height:1000px;display:flex;flex-direction:column;">
+  <div style="display:flex;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="border:1px solid var(--accent);color:var(--accent);width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;">B</div>
+      <span class="mono" style="color:var(--cream);">Bravo Energy</span>
+    </div>
+    <span class="mono accent">End of Issue · No. 02</span>
+  </div>
+  <div style="margin-top:80px;">
+    <div class="disp" style="font-size:120px;color:var(--accent);">B<span style="color:var(--blue);">.</span></div>
+    <p class="lead" style="color:#c7d5df;max-width:560px;margin-top:20px;">Deep Water Intelligence is the free monthly read of Bravo Energy — built for the operators, financiers, yards and tender teams making this industry's next thirty years.</p>
+  </div>
+  <div class="two" style="margin-top:46px;gap:24px;">
+    <div style="border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:24px;">
+      <div class="pip mono accent">Bravo Experts Network</div>
+      <h3 class="disp" style="color:var(--cream);font-size:23px;margin:8px 0;">Talk to the people who've done it</h3>
+      <p style="color:#bfd0dc;font-size:14px;">Vetted offshore specialists — commercial, technical, market — on demand. By job title, sector and seniority. <span class="accent">bravoenergy.co/experts</span></p>
+    </div>
+    <div style="border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:24px;">
+      <div class="pip mono accent">Bravo Tender Workspace</div>
+      <h3 class="disp" style="color:var(--cream);font-size:23px;margin:8px 0;">From ITT to submission-ready</h3>
+      <p style="color:#bfd0dc;font-size:14px;">Clarifications, contract-risk analysis, competitor evaluation, deliverables and a costed package — assembled. <span class="accent">bravoenergy.co/tender</span></p>
+    </div>
+  </div>
+  <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;padding-top:46px;border-top:1px solid rgba(255,255,255,.14);">
+    <div><div class="mono" style="color:var(--cream);margin-bottom:6px;">Subscribe — free</div><div class="mono" style="color:#8aa0b0;line-height:1.9;">bravoenergy.co/intelligence<br>desk@bravoenergy.co</div></div>
+    <div><div class="mono" style="color:var(--cream);margin-bottom:6px;">Next issue</div><div class="mono" style="color:#8aa0b0;line-height:1.9;">No. 03 · September 2026<br>The cable layer</div></div>
+    <div><div class="mono" style="color:var(--cream);margin-bottom:6px;">Coverage</div><div class="mono" style="color:#8aa0b0;line-height:1.9;">Global · APAC + Brazil<br>Offshore energy</div></div>
+  </div>
+  <div class="mono" style="color:#5d7184;margin-top:22px;letter-spacing:.1em;">© 2026 Bravo Energy · Free to read and share</div>
+</section>
+
+</body>
+</html>

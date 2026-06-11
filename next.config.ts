@@ -1,8 +1,13 @@
 import type { NextConfig } from "next";
 
+/**
+ * Cloudflare Pages target — static export.
+ * `next build` produces `out/` which `wrangler pages deploy out` can publish.
+ */
 const nextConfig: NextConfig = {
-  /* config options here */
-  output: "standalone",
+  output: "export",
+  images: { unoptimized: true },
+  trailingSlash: true,
 };
 
 export default nextConfig;

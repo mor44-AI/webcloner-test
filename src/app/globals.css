@@ -7,9 +7,28 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
-  --font-heading: var(--font-sans);
+
+  /* Bravo Energy type stack */
+  --font-sans: var(--font-newsreader), Georgia, ui-serif, serif;
+  --font-serif: var(--font-fraunces), Georgia, ui-serif, serif;
+  --font-display: var(--font-fraunces), Georgia, ui-serif, serif;
+  --font-mono: var(--font-mono), ui-monospace, "Courier New", monospace;
+
+  /* Bravo palette, verbatim from deep-water-intelligence-skill/SKILL.md :root */
+  --color-bravo-navy: var(--bravo-navy);
+  --color-bravo-navy2: var(--bravo-navy2);
+  --color-bravo-cream: var(--bravo-cream);
+  --color-bravo-cream2: var(--bravo-cream2);
+  --color-bravo-ink: var(--bravo-ink);
+  --color-bravo-muted: var(--bravo-muted);
+  --color-bravo-accent: var(--bravo-accent);
+  --color-bravo-blue: var(--bravo-blue);
+  --color-bravo-line: var(--bravo-line);
+  --color-bravo-hi: var(--bravo-hi);
+  --color-bravo-med: var(--bravo-med);
+  --color-bravo-watch: var(--bravo-watch);
+
+  /* shadcn aliases */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,6 +58,7 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,72 +69,100 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* Bravo palette */
+  --bravo-navy: #0A1A28;
+  --bravo-navy2: #0E2536;
+  --bravo-cream: #F5F2E9;
+  --bravo-cream2: #EFEBDD;
+  --bravo-ink: #1B2733;
+  --bravo-muted: #5C6B78;
+  --bravo-accent: #C8772E; /* copper */
+  --bravo-blue: #5B93C4;
+  --bravo-electric: #0038FF; /* PPTX / reference saturated blue */
+  --bravo-line: #D8D2C2;
+
+  /* Ocean-depth gradient stops: starts at the hero water-video blue
+     (sampled ~#023E57) with a faint surface lift, then deepens to abyss. */
+  --ocean-0: #034866;
+  --ocean-1: #023E57;
+  --ocean-2: #022F45;
+  --ocean-3: #02212F;
+  --ocean-4: #03151e;
+  --ocean-5: #020b11;
+  /* Legible deep-ocean blue for text sitting on white/cream (matrix bars,
+     active tier button). Independent of the gradient stops above. */
+  --ocean-ink: #033A55;
+  --bravo-hi: #F6E9D7;
+  --bravo-med: #DCE6EE;
+  --bravo-watch: #F1E0CE;
+
+  --background: var(--bravo-cream);
+  --foreground: var(--bravo-ink);
+
+  --card: #ffffff;
+  --card-foreground: var(--bravo-ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--bravo-ink);
+  --primary: var(--bravo-accent);
+  --primary-foreground: var(--bravo-navy);
+  --secondary: var(--bravo-cream2);
+  --secondary-foreground: var(--bravo-ink);
+  --muted: rgba(27, 39, 51, 0.06);
+  --muted-foreground: var(--bravo-muted);
+  --accent: var(--bravo-accent);
+  --accent-foreground: var(--bravo-navy);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: var(--bravo-line);
+  --input: var(--bravo-line);
+  --ring: var(--bravo-accent);
+  --chart-1: var(--bravo-accent);
+  --chart-2: var(--bravo-blue);
+  --chart-3: var(--bravo-navy);
+  --chart-4: var(--bravo-cream2);
+  --chart-5: var(--bravo-muted);
+  --radius: 0.5rem;
+  --sidebar: var(--bravo-cream);
+  --sidebar-foreground: var(--bravo-ink);
+  --sidebar-primary: var(--bravo-accent);
+  --sidebar-primary-foreground: var(--bravo-navy);
+  --sidebar-accent: var(--bravo-cream2);
+  --sidebar-accent-foreground: var(--bravo-ink);
+  --sidebar-border: var(--bravo-line);
+  --sidebar-ring: var(--bravo-accent);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: var(--bravo-navy);
+  --foreground: var(--bravo-cream);
+  --card: var(--bravo-navy2);
+  --card-foreground: var(--bravo-cream);
+  --popover: var(--bravo-navy2);
+  --popover-foreground: var(--bravo-cream);
+  --primary: var(--bravo-accent);
+  --primary-foreground: var(--bravo-navy);
+  --secondary: var(--bravo-navy2);
+  --secondary-foreground: var(--bravo-cream);
+  --muted: rgba(245, 242, 233, 0.08);
+  --muted-foreground: rgba(245, 242, 233, 0.6);
+  --accent: var(--bravo-accent);
+  --accent-foreground: var(--bravo-navy);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: rgba(245, 242, 233, 0.14);
+  --input: rgba(245, 242, 233, 0.16);
+  --ring: var(--bravo-accent);
+  --chart-1: var(--bravo-accent);
+  --chart-2: var(--bravo-blue);
+  --chart-3: var(--bravo-cream);
+  --chart-4: var(--bravo-cream2);
+  --chart-5: var(--bravo-muted);
+  --sidebar: var(--bravo-navy2);
+  --sidebar-foreground: var(--bravo-cream);
+  --sidebar-primary: var(--bravo-accent);
+  --sidebar-primary-foreground: var(--bravo-navy);
+  --sidebar-accent: var(--bravo-navy);
+  --sidebar-accent-foreground: var(--bravo-cream);
+  --sidebar-border: rgba(245, 242, 233, 0.14);
+  --sidebar-ring: var(--bravo-accent);
 }
 
 @layer base {
@@ -126,5 +174,103 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
+  .font-display,
+  .font-serif {
+    font-family: var(--font-display);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}
+
+/* ============================================================================
+ * Bravo Energy, reusable utilities tokenised via :root vars.
+ * ============================================================================ */
+
+@layer utilities {
+  /* Navy radial used on hero + waitlist sections, matches DWI cover */
+  .bg-bravo-navy-radial {
+    background-image: radial-gradient(120% 80% at 80% 10%, #16334a 0%, var(--bravo-navy) 55%);
+    background-color: var(--bravo-navy);
+  }
+  /* Cream backdrop with the faintest warm noise overlay */
+  .bg-bravo-cream-grain {
+    background-color: var(--bravo-cream);
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(200, 119, 46, 0.06), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(91, 147, 196, 0.05), transparent 50%);
+  }
+  /* Copper pill button fill */
+  .bg-bravo-copper {
+    background: var(--bravo-accent);
+    color: var(--bravo-navy);
+  }
+  /* Saturated electric blue band used by the consultancy section */
+  .bg-bravo-electric {
+    background: var(--bravo-electric);
+    color: var(--bravo-cream);
+  }
+  /* Continuous ocean-depth gradient for the whole post-hero page */
+  .bg-ocean-depth {
+    background: linear-gradient(
+      180deg,
+      var(--ocean-0) 0%,
+      var(--ocean-1) 20%,
+      var(--ocean-2) 42%,
+      var(--ocean-3) 62%,
+      var(--ocean-4) 82%,
+      var(--ocean-5) 100%
+    );
+  }
+  /* Copper rule used between heading and body, DWI .rule clone */
+  .copper-rule {
+    height: 3px;
+    background: var(--bravo-accent);
+    margin: 16px 0 22px;
+    width: 56px;
+  }
+  /* Section corner-tuck */
+  .section-tuck {
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
+  }
+  .section-tuck-lg {
+    border-bottom-left-radius: 48px;
+    border-bottom-right-radius: 48px;
+  }
+  /* Fade strips between dark and cream sections, keeps scrolling smooth */
+  .bg-fade-to-cream {
+    background: linear-gradient(180deg, rgba(245, 242, 233, 0) 0%, var(--bravo-cream) 100%);
+  }
+  .bg-fade-to-navy {
+    background: linear-gradient(180deg, rgba(245, 242, 233, 0) 0%, var(--bravo-navy) 100%);
+  }
+  .bg-fade-from-cream {
+    background: linear-gradient(180deg, var(--bravo-cream) 0%, rgba(245, 242, 233, 0) 100%);
+  }
+  /* Default Newsreader body type */
+  .copy {
+    color: var(--bravo-ink);
+    line-height: 1.55;
+  }
+  .copy-on-dark {
+    color: rgba(245, 242, 233, 0.85);
+    line-height: 1.55;
+  }
+}
+
+/* Letter-by-letter reveal helper (kept; renamed). */
+.bravo-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.bravo-char.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }

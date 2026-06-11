@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Water Intelligence — Issue 01 · The Security Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --navy:#0A1A28; --navy2:#0E2536; --cream:#F5F2E9; --cream2:#EFEBDD;
+    --ink:#1B2733; --muted:#5C6B78; --accent:#C8772E; --blue:#5B93C4;
+    --line:#D8D2C2; --hi:#F6E9D7; --med:#DCE6EE; --watch:#F1E0CE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#3a3a3a;font-family:'Newsreader',Georgia,serif;color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .page{max-width:920px;margin:0 auto;background:var(--cream);padding:64px 72px;position:relative;overflow:hidden;height:1240px;display:flex;flex-direction:column;}
+  .page.dark{background:var(--navy);background-image:radial-gradient(120% 80% at 80% 10%,#16334a 0%,var(--navy) 55%);color:var(--cream);}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;font-size:11px;}
+  .disp{font-family:'Fraunces',Georgia,serif;font-weight:400;line-height:1.04;letter-spacing:-.01em;}
+  .disp i{font-style:italic;color:var(--blue);}
+  h1.disp{font-size:62px;} h2.disp{font-size:42px;} h3.disp{font-size:27px;}
+  .accent{color:var(--accent);}
+  .runhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.12);padding-bottom:10px;margin-bottom:30px;}
+  .dark .runhead{border-color:rgba(255,255,255,.14);}
+  .kicker{color:var(--accent);margin-bottom:14px;}
+  p{margin-bottom:15px;font-size:16px;}
+  .lead{font-size:21px;line-height:1.5;}
+  .drop::first-letter{font-family:'Fraunces',serif;font-size:74px;float:left;line-height:.8;padding:6px 10px 0 0;color:var(--accent);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:42px;}
+  .rule{height:3px;background:var(--ink);margin:16px 0 26px;}
+  .dark .rule{background:var(--cream);}
+  .label{color:var(--accent);margin-bottom:8px;}
+  .quote{border-left:3px solid var(--accent);padding-left:20px;font-family:'Fraunces',serif;font-style:italic;font-size:26px;line-height:1.32;color:var(--ink);margin:6px 0;}
+  .dark .quote{color:var(--cream);}
+  .pull{font-family:'Fraunces',serif;font-size:30px;line-height:1.25;color:var(--ink);margin:18px 0;}
+  .src{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-top:24px;}
+  .kbbox{background:#10283b;color:var(--cream);border-radius:8px;padding:22px 24px;margin:8px 0;}
+  .kbbox .h{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:10px;}
+  .kbbox p{font-size:14px;color:#cdd9e2;margin-bottom:0;}
+  .statbox{border:1px solid var(--line);border-radius:8px;padding:18px;text-align:center;}
+  .statbox .n{font-family:'Fraunces',serif;font-size:48px;line-height:1;color:var(--accent);}
+  .statbox .c{font-size:13px;color:var(--muted);margin-top:8px;}
+  .cta{background:var(--navy);color:var(--cream);border-radius:8px;padding:20px 24px;margin:24px 0;display:flex;gap:18px;align-items:center;}
+  .cta .pip{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;}
+  .cta h4{font-family:'Fraunces',serif;font-weight:500;font-size:19px;margin:4px 0 6px;color:var(--cream);}
+  .cta p{font-size:14px;color:#cdd9e2;margin:0;}
+  .cta .arrow{margin-left:auto;color:var(--accent);font-size:26px;}
+  .footer{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:auto;flex-shrink:0;padding-top:14px;border-top:1px solid var(--line);}
+  .dark .footer{color:#7e93a3;border-color:rgba(255,255,255,.12);}
+  ul.clean{list-style:none;} ul.clean li{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;}
+  ul.clean li:before{content:"▶";color:var(--accent);font-size:9px;margin-right:10px;vertical-align:middle;}
+  .feat{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:4px 10px;}
+  .read{background:var(--cream2);border-radius:8px;padding:22px 24px;margin:18px 0;}
+  .read .h{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:10px;}
+  .read p{font-size:14px;margin-bottom:0;}
+  .tl{position:relative;margin:18px 0 6px;padding-top:8px;}
+  .tl .axis{height:2px;background:var(--line);position:relative;margin:34px 0 0;}
+  .tl .pt{position:absolute;top:-7px;width:12px;height:12px;border-radius:50%;background:var(--accent);transform:translateX(-50%);}
+  .tl .yr{position:absolute;top:-32px;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink);font-weight:600;}
+  .tl .cap{position:absolute;top:16px;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--muted);text-align:center;width:120px;text-transform:uppercase;}
+  .story-col{font-size:16px;}
+  @media(max-width:760px){.page{padding:36px 24px;}.two{grid-template-columns:1fr;gap:22px;}h1.disp{font-size:40px;}h2.disp{font-size:30px;}}
+  @media print{
+    body{background:#fff;}
+    .page{margin:0;page-break-after:always;width:100%;height:1240px;overflow:hidden;}
+    .page:last-child{page-break-after:auto;}
+    .drop::first-letter{font-size:inherit;float:none;padding:0;color:inherit;line-height:inherit;}
+  }
+  @page{size:920px 1240px;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page dark">
+  <svg viewBox="0 0 920 1180" preserveAspectRatio="none" style="position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;opacity:1;">
+    <g fill="none">
+      <path d="M0,300 C230,270 470,330 700,300 920,278 920,300 920,300" stroke="#2d5470" stroke-width="1.5" opacity="0.7"/>
+      <path d="M0,470 C260,440 500,510 760,470 920,448 920,470 920,470" stroke="#274d68" stroke-width="1.5" opacity="0.7"/>
+      <path d="M0,720 C240,690 520,760 780,720 920,700 920,720 920,720" stroke="#22455e" stroke-width="1.5" opacity="0.7"/>
+      <path d="M0,980 C300,950 560,1020 820,980 920,962 920,980 920,980" stroke="#1c3c52" stroke-width="1.5" opacity="0.7"/>
+    </g>
+    <g font-family="'IBM Plex Mono',monospace" font-size="10" letter-spacing="1">
+      <text x="14" y="296" fill="#7e9db5">-200M</text>
+      <text x="14" y="466" fill="#7090a8">-800M</text>
+      <text x="14" y="716" fill="#628299">-1.8KM</text>
+      <text x="14" y="976" fill="#54748a">-3.0KM</text>
+    </g>
+  </svg>
+
+  <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="border:1px solid var(--accent);color:var(--accent);width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:18px;">B</div>
+      <span class="mono" style="color:var(--cream);letter-spacing:.22em;">Bravo Energy</span>
+    </div>
+    <div class="mono accent" style="text-align:right;line-height:2;">
+      Issue No. 01<br><span style="color:#8aa0b0;">July 2026</span><br><span style="color:#8aa0b0;">Monthly Report</span>
+    </div>
+  </div>
+
+  <div style="position:relative;margin-top:150px;">
+    <div class="mono accent" style="letter-spacing:.26em;margin-bottom:22px;">Deep Water Intelligence</div>
+    <h1 class="disp" style="font-size:92px;">The Security<br><i>Premium</i>.</h1>
+    <p class="lead" style="color:#c7d5df;max-width:560px;margin-top:30px;">How geopolitics, not price, now decides what gets built offshore. Three stories on the same idea: the world stopped paying for barrels and started paying for certainty.</p>
+  </div>
+</section>
+
+<!-- ============ THE LEAD / FRAMING ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence</span><span class="mono">Issue 01 · July 2026</span></div>
+  <div class="kicker mono">The argument</div>
+  <h2 class="disp">We stopped paying for oil. We started paying for <i>certainty</i>.</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div>
+      <p class="lead">For thirty years the offshore industry was read through one number: the oil price. High price, build; low price, stop. That model is broken, and this spring proved it.</p>
+      <p>In March 2026, Iran closed the Strait of Hormuz. Twenty percent of the world's oil moves through that channel. Global production fell roughly 8%. The price spiked 60%, seven and a half times the size of the actual shortfall. Then the strait reopened, the war premium drained out, and Brent fell 17% in a month. Through all of it, the projects kept getting sanctioned.</p>
+      <p>That gap, 8% of supply against 60% of price, is the whole story. The market wasn't pricing barrels. It was pricing fear: the fear of not having energy when you need it. Call it the security premium, and once you see it, the offshore map looks different.</p>
+      <p>The security premium also has a geography. It concentrates in basins that are hard to interrupt, Atlantic deepwater above all, where fields sit far from every contested strait. Petrobras sanctioned R$60 billion of development in April 2026, at the height of the Hormuz disruption, into fields that don't transit that strait. The market didn't notice the connection. The Petrobras board did.</p>
+      <p>This issue follows that one idea through three stories. Each builds on the last. The price is a fear gauge. The demand under it is being set in Chinese apartments, not trading desks. And the thing that actually decides who wins is not capital: it's steel, hulls and cable that take years to build and can't be conjured in a crisis.</p>
+    </div>
+    <div>
+      <div class="quote">"The market wasn't pricing barrels. It was pricing the fear of not having energy when you need it."</div>
+      <p style="margin-top:26px;font-size:16px;">What's unusual about this moment is the response. Oil markets have always overreacted to supply shocks. What's different is that instead of pausing, the sanctioning calendar ran on. Petrobras committed through volatility. The SEAP fields, discovered over a decade ago and twice shelved, finally cleared FID in the middle of the noise. The industry is telling you it doesn't believe the spot price tells it anything useful about 2030.</p>
+      <p style="font-size:16px;">The price chart, in other words, is the wrong thing to watch. Watch the boards, the yards, and the hull queue instead. They've already decided.</p>
+    </div>
+  </div>
+  <div class="footer"><span>The Argument</span><span>01</span></div>
+</section>
+
+<!-- ============ STORY 01 — PAGE A ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Security Premium</span><span class="feat">Story 01</span></div>
+  <div class="kicker mono">Story One · Price</div>
+  <h2 class="disp">The 60% <i>lie</i>.</h2>
+  <p class="lead" style="max-width:640px;margin-bottom:24px;">Hormuz took 8% of supply off the market and the price went up 60%. That number isn't a measure of scarcity. It's a measure of fear, and fear is now the most important input in the offshore investment case.</p>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="story-col">
+      <p class="drop">When the Iranian navy broadcast that the Strait of Hormuz was closed, the reaction in the oil market told you everything about how the modern energy system actually works. Twenty percent of the world's seaborne oil passes through a channel a few miles wide. Supply fell about 8%. Brent rose roughly 60%.</p>
+      <p>If oil traded on physical balance, an 8% shortfall would move the price 8%, maybe a little more given thin spare capacity. Instead it moved nearly eight times that. The difference is not supply and demand. It is the premium the world pays to insure itself against the possibility of not having oil at all.</p>
+      <p>This is not new behaviour, it's just rarely named. The Middle East has understood it for fifty years. As the petrodollar arrangement made explicit, the price of oil is not really set by the people who buy it. It is defended by the people who would collapse without it: producers whose entire state finances depend on the barrel never going to zero, and who will side with whoever guarantees the system that keeps it flowing.</p>
+      <p>The corollary matters more than the spike. You cannot actually stop the flow of oil. Sanctions created a shadow fleet of bad ships moving Russian and Iranian crude through the same straits, because the incentive to move oil always exceeds the cost of stopping it. So the disruptions are real, the fear is real, but the barrels keep moving. The risk gets repriced; the volume does not.</p>
+    </div>
+    <div>
+      <div class="kbbox">
+        <div class="h">The premium, in three numbers</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;">
+          <div style="text-align:center;"><div style="font-family:'Fraunces',serif;font-size:34px;color:var(--accent);line-height:1;">60%</div><p style="font-size:13px;color:#cdd9e2;margin-top:6px;margin-bottom:0;">price spike on an 8% supply loss</p></div>
+          <div style="text-align:center;"><div style="font-family:'Fraunces',serif;font-size:34px;color:var(--accent);line-height:1;">95%</div><p style="font-size:13px;color:#cdd9e2;margin-top:6px;margin-bottom:0;">of global data travels on submarine cables</p></div>
+          <div style="text-align:center;"><div style="font-family:'Fraunces',serif;font-size:34px;color:var(--accent);line-height:1;">2</div><p style="font-size:13px;color:#cdd9e2;margin-top:6px;margin-bottom:0;">FPSO hulls removed from the global queue</p></div>
+        </div>
+      </div>
+      <div class="kbbox" style="margin-top:14px;">
+        <div class="h">Key information</div>
+        <p><b>20%</b> of the world's seaborne oil transits Hormuz.<br><br><b>~8%</b> supply fell during the March 2026 closure; the price rose ~60%, 7.5× the shortfall.<br><br><b>Producers, not buyers, defend the price.</b> A Gulf state collapses if the barrel goes to zero, so it sides with whoever secures the system.<br><br><b>Sanctions don't stop oil.</b> They create a shadow fleet. The barrels move; only the risk gets repriced.</p>
+      </div>
+      <p style="font-size:14px;color:var(--muted);margin-top:14px;">For an industry that sanctions twenty-year assets, this changes the question. The old question was "where is the price going?" The new question is "where is the oil that no one can shut off?" That question has a geography.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Story 01 · The 60% Lie</span><span>02</span></div>
+</section>
+
+<!-- ============ STORY 01 — PAGE B ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Security Premium</span><span class="feat">Story 01 · cont.</span></div>
+  <div class="pull" style="margin-bottom:6px;">The question shifted from "where is the price going" to "whose oil can nobody shut off."</div>
+  <div class="rule"></div>
+  <div class="two">
+    <div>
+      <h3 class="disp">The geography of "can't be shut off".</h3>
+      <p style="margin-top:12px;">Map the world's oil by how easily it can be choked, and a hierarchy appears. Gulf crude is the cheapest to produce and the easiest to interrupt: one strait, one flashpoint. Russian and Iranian barrels are abundant but sanctioned, surviving only through the shadow fleet. And then there is the oil that sits outside every chokepoint: deepwater Atlantic, offshore Brazil, the basins that reach open ocean without passing a single hostile narrows.</p>
+      <p>That last category is where the security premium builds. Brazil's pre-salt and the new Sergipe-Alagoas frontier don't transit Hormuz, don't transit Malacca, don't depend on a pipeline crossing a contested border. In a world paying 60% for the fear of disruption, "undisruptable" is a feature you can underwrite.</p>
+      <p>It also explains why Venezuela, with the largest reserves on earth, stays stranded. Reserves are not the asset. Deliverable, secure, fungible barrels are the asset. Venezuela's heavy crude is neither cheap to lift nor easy to sell. The premium rewards security of delivery, not size of deposit.</p>
+    </div>
+    <div>
+      <div class="read">
+        <div class="h">The offshore read</div>
+        <p>Security of delivery is becoming a pricing factor in its own right. Non-chokepoint deepwater, Atlantic Brazil above all, carries a structural premium that the spot price doesn't show. The operators sanctioning through volatility already know this. It's why SEAP got a green light in the middle of the noise.</p>
+      </div>
+      <div class="pull" style="margin-top:24px;">Find the oil nobody can stop and you've answered half the question. The other half is who needs it.</div>
+      <p style="font-size:14px;color:var(--muted);margin-top:12px;">That demand is being set in Chinese apartments, not on trading desks. That's Story Two.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Story 01 · The 60% Lie</span><span>03</span></div>
+</section>
+
+<!-- ============ STORY 02 — PAGE A ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Security Premium</span><span class="feat">Story 02</span></div>
+  <div class="kicker mono">Story Two · Demand</div>
+  <h2 class="disp">The demand nobody's <i>pricing</i>.</h2>
+  <p class="lead" style="max-width:640px;margin-bottom:24px;">The security premium only matters if demand is going somewhere. It is, and it's being set in places no energy desk watches: Chinese apartments on a hot afternoon, and the wreckage of a Baltic pipeline.</p>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="story-col">
+      <p class="drop">Here is a number that should reframe every long-dated gas project on the board: China is now the world's largest consumer of air conditioning, adding units faster than any other country, and two of every five units made on earth go to a Chinese household. As incomes rise, cooling rises, and electricity demand climbs a curve that looks nothing like the flat Western forecasts most models still use.</p>
+      <p>Electricity is the demand story, and gas is how a lot of it gets made. That is the link the oil-price lens misses entirely. The offshore gas build-out, including SEAP's 22 million cubic metres a day, the APAC floating-LNG pipeline, and the South China Sea gas FPSOs, is not really a bet on gas. It's a bet on Asian electrons, underwritten by a demand curve bending upward in real apartments.</p>
+    </div>
+    <div class="story-col">
+      <p>Then Nord Stream taught the second lesson. When Russia shut the pipeline, Europe discovered that gas isn't a commodity you buy on price. It's the fuel that makes your electricity, and its supply is a matter of survival. Countries that had optimised for cheap gas had to scramble for secure gas, at any price. The premium reappeared, this time in molecules.</p>
+      <p>Put the two together and the picture is clear. Demand is structural and rising: cooling, electrification, industry. Supply security is now priced separately from supply cost, which Nord Stream established definitively. And both run through the petrodollar, which still denominates the trade. That's three reinforcing reasons to build secure, long-life offshore gas, and none of them show up in a barrel price.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Story 02 · The Demand Nobody's Pricing</span><span>04</span></div>
+</section>
+
+<!-- ============ STORY 02 — PAGE B ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Security Premium</span><span class="feat">Story 02 · cont.</span></div>
+  <div class="two">
+    <div>
+      <h3 class="disp">Why the gas FID survives a falling oil price.</h3>
+      <p style="margin-top:12px;">This is the analytical payoff. When Brent fell 17% in May, an oil-price model said: expect sanctioning to pause. It didn't. Petrobras committed SEAP, a project heavy on gas, in the same window. The model was watching the wrong variable.</p>
+      <p>Long-dated offshore gas isn't underwritten by today's spot price. It's underwritten by a twenty-year demand thesis, Asian electrification, and by a security premium that rose, not fell, after Nord Stream. A developer looking at SEAP gas or an Indonesian floating-LNG scheme is pricing the certainty that someone in Shanghai will need that electron in 2032, and pricing the lesson that buyers will pay extra never to be cut off again.</p>
+      <p>The risk to the thesis is also worth naming. China is building staggering amounts of solar, wind and nuclear precisely because it does not want to import its energy security. If electrification outruns the need for imported gas, the demand curve bends back. That tension, gas as a bridge versus gas as a stranded bet, is the single most important debate in offshore today, and it deserves its own issue.</p>
+    </div>
+    <div>
+      <div class="kbbox">
+        <div class="h">Key information</div>
+        <p><b>2 of every 5</b> air-conditioning units made on earth are sold to a Chinese household (IEA; CHEAA 2025).<br><br><b>Nord Stream</b> reset gas from "priced on cost" to "priced on security." Buyers now pay extra never to be cut off.<br><br><b>Gas FIDs</b> are underwritten by a 20-year demand thesis, not by spot Brent.</p>
+      </div>
+      <div class="read">
+        <div class="h">The offshore read</div>
+        <p>Gas-weighted deepwater is the most defensible capital in the sector right now, backed by a rising demand curve and a post-Nord Stream security premium. Watch the China-electrification counter-thesis: it's the one thing that breaks the case.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Story 02 · The Demand Nobody's Pricing</span><span>05</span></div>
+</section>
+
+<!-- ============ STORY 03 — PAGE A ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Security Premium</span><span class="feat">Story 03</span></div>
+  <div class="kicker mono">Story Three · The constraint</div>
+  <h2 class="disp">The physical <i>layer</i>.</h2>
+  <p class="lead" style="max-width:640px;margin-bottom:24px;">Fear sets the price. Electrons set the demand. But the thing that decides who captures the security premium isn't money: it's steel that takes years to build and can't be summoned in a crisis.</p>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="story-col">
+      <p class="drop">There is a comforting assumption buried in most energy analysis: that capital is the binding constraint. It isn't. Capital is abundant and patient, as Story 01 established. Demand is structural, as Story 02 showed. The binding constraint is physical: the hulls, the yards, the pipelines and the cables that actually move energy from the seabed to the apartment in Shanghai.</p>
+      <p>Consider the layers. A deepwater field needs a production platform or an FPSO, a ship-shaped factory moored over the field, processing and storing oil and gas hundreds of miles from shore. The output leaves by pipeline or tanker. And underneath the whole system runs another network most people never think about: over 500 submarine cables, over 800,000 miles of them, carrying 95% of international data and $10 trillion in daily financial transactions, plus the power feeds to the offshore installations themselves.</p>
+    </div>
+    <div class="story-col">
+      <p>Every one of these is slow to build, concentrated among a handful of suppliers, and physically vulnerable. A cable is cut by an anchor or a trawler and needs a specialist vessel to find and repair it. An FPSO takes years and only a few contractors can deliver one. A pipe-lay or cable-lay spread is a scarce, bookable asset. Capital alone cannot conjure capacity when you suddenly need it.</p>
+      <p>Which is the real lesson of the security premium. In a world paying for certainty, power flows to whoever controls the physical layer, the steel and the slots, not the balance sheet. This is the historical pattern: control of physical infrastructure, not the financial claim on it, endures.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Story 03 · The Physical Layer</span><span>06</span></div>
+</section>
+
+<!-- ============ STORY 03 — PAGE B ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence · The Security Premium</span><span class="feat">Story 03 · cont.</span></div>
+  <div class="two">
+    <div>
+      <h3 class="disp">A field that waited twelve years.</h3>
+      <p style="margin-top:12px;">SEAP is not a routine award, and that's the point. The Sergipe-Alagoas deepwater fields, Barra, Farfan, Muriú, Moita Bonita, Poço Verde, Cumbe, were discovered over a decade ago. An early plan pencilled the first FPSO in for 2023. In 2018 Petrobras put the entire deepwater package up for sale. It couldn't get the price it wanted, and in 2022 it pulled the assets off the market. The project drifted in and out of successive business plans, deferred by the 2015–16 price crash, the divestment drive, and a royalty dispute between Petrobras, the federal government and Sergipe state.</p>
+      <p>Then, inside six months, both modules cleared FID: SEAP II in December 2025, SEAP I in April 2026. The royalty fight was settled and the calculus flipped. An asset Petrobras had tried to offload became one worth R$60 billion to build and keep. That reversal, from "for sale" to "strategic," is the security premium made concrete. Secure, non-chokepoint Atlantic gas is worth more now than when this field was just a line item to divest.</p>
+      <p>The hull consequence follows. Two FPSOs went to SBM Offshore, two of a small global number of build slots. A Southeast Asian gas developer riding the same demand curve now finds its own queue longer and dearer. Brazil's discipline becomes Asia's lead-time problem. Not because of price. Because of physics.</p>
+      <div class="pull">In a world paying for certainty, power flows to whoever controls the steel, not the balance sheet.</div>
+    </div>
+    <div>
+      <div class="read">
+        <div class="h">The offshore read</div>
+        <p>The moat is physical and bookable: hulls, cable plant, lay vessels, yard slots. Whoever secures the steel captures the premium. For everyone else, the edge is execution, reading the tender and bidding the surrounding scope before the queue closes.</p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:8px;padding:22px 30px 30px;margin-top:18px;background:#fff;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:var(--ink);font-weight:600;">SEAP — DISCOVERED, SHELVED, NEARLY SOLD, NOW BUILT</div>
+        <div class="tl" style="padding-top:22px;">
+          <div class="axis">
+            <!-- ~2013: normal — yr above, cap below -->
+            <div class="pt" style="left:2%;"></div>
+            <div class="yr" style="left:2%;">~2013</div>
+            <div class="cap" style="left:2%;text-align:left;transform:none;width:68px;">Fields<br>discovered</div>
+            <!-- 2018: normal -->
+            <div class="pt" style="left:26%;"></div>
+            <div class="yr" style="left:26%;">2018</div>
+            <div class="cap" style="left:26%;width:70px;">Put up<br>for sale</div>
+            <!-- 2022: normal -->
+            <div class="pt" style="left:50%;"></div>
+            <div class="yr" style="left:50%;">2022</div>
+            <div class="cap" style="left:50%;width:70px;">Sale<br>cancelled</div>
+            <!-- Dec '25: FLIPPED — yr below, cap above -->
+            <div class="pt" style="left:62%;"></div>
+            <div class="yr" style="left:62%;top:22px;">Dec '25</div>
+            <div class="cap" style="left:62%;top:-32px;width:70px;">FID<br>Module 2</div>
+            <!-- Apr '26: normal -->
+            <div class="pt" style="left:78%;background:#C8772E;"></div>
+            <div class="yr" style="left:78%;">Apr '26</div>
+            <div class="cap" style="left:78%;width:70px;">FID<br>Module 1</div>
+            <!-- 2030: FLIPPED — yr below, cap above -->
+            <div class="pt" style="left:96%;background:#5B93C4;"></div>
+            <div class="yr" style="left:96%;top:22px;transform:translateX(-100%);">2030</div>
+            <div class="cap" style="left:96%;top:-32px;text-align:right;transform:translateX(-100%);width:60px;">First<br>oil</div>
+          </div>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;border-top:1px solid var(--line);padding-top:8px;margin-top:58px;">Source: Offshore Energy, Brazil Energy Insight, OGJ · twelve years from discovery to sanction</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Story 03 · The Physical Layer</span><span>07</span></div>
+</section>
+
+<!-- ============ CLOSE / WHAT IT MEANS ============ -->
+<section class="page dark">
+  <div class="runhead"><span class="mono" style="color:#8aa0b0;">Deep Water Intelligence · The Security Premium</span><span class="mono accent">The takeaway</span></div>
+  <div class="kicker mono">Where this leaves us</div>
+  <h2 class="disp" style="color:var(--cream);">One premium, three <i>consequences</i>.</h2>
+  <p class="lead" style="color:#c7d5df;max-width:640px;">If the world is paying for certainty rather than barrels, here's what follows for anyone with capital, a project or a bid in this market.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:30px;">
+    <div><div class="mono accent">01 · Price</div><p style="color:#cdd9e2;font-size:14px;margin-top:8px;">Stop reading the spot price as a build signal. Read chokepoint exposure. Non-disruptable Atlantic deepwater carries a premium the tape won't show you.</p></div>
+    <div><div class="mono accent">02 · Demand</div><p style="color:#cdd9e2;font-size:14px;margin-top:8px;">Underwrite gas on Asian electrification and post-Nord Stream security, not on Brent. Watch China's own clean build-out as the counter-thesis.</p></div>
+    <div><div class="mono accent">03 · Constraint</div><p style="color:#cdd9e2;font-size:14px;margin-top:8px;">The moat is physical. Book the steel or win the work around it. Capital won't save you when the hull queue is already full.</p></div>
+  </div>
+  <div class="quote" style="color:var(--cream);margin-top:34px;max-width:720px;">"The barrel price is a thermometer. We keep mistaking it for the weather. This issue is about the weather."</div>
+
+  <div style="margin-top:34px;border-top:1px solid rgba(255,255,255,.14);padding-top:24px;">
+    <div class="mono accent" style="margin-bottom:16px;">What to watch now — the signals that test this thesis</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 36px;">
+      <div style="border-left:2px solid #C8772E;padding-left:14px;"><div class="mono" style="color:var(--cream);font-size:10px;">FPSO &amp; hull bids</div><p style="color:#cdd9e2;font-size:14px;margin:4px 0 0;">SEAP SURF and topsides tenders; any new APAC floating-production award and how the lead times move. Tighter queue = thesis holding.</p></div>
+      <div style="border-left:2px solid #C8772E;padding-left:14px;"><div class="mono" style="color:var(--cream);font-size:10px;">Pipeline &amp; cable bids</div><p style="color:#cdd9e2;font-size:14px;margin:4px 0 0;">SEAP gas-export pipeline scope; subsea cable orders. Watch which contractors and yards get booked out.</p></div>
+      <div style="border-left:2px solid #C8772E;padding-left:14px;"><div class="mono" style="color:var(--cream);font-size:10px;">Quarterly results</div><p style="color:#cdd9e2;font-size:14px;margin:4px 0 0;">Petrobras, SBM, Subsea7, Saipem backlog and book-to-bill. Rising backlog through a soft oil price confirms the decoupling.</p></div>
+      <div style="border-left:2px solid #C8772E;padding-left:14px;"><div class="mono" style="color:var(--cream);font-size:10px;">Demand &amp; security signals</div><p style="color:#cdd9e2;font-size:14px;margin:4px 0 0;">China power demand and clean-build pace; LNG security premiums; any fresh chokepoint event repricing risk.</p></div>
+    </div>
+  </div>
+
+  <div style="margin-top:30px;background:#08151f;border-radius:8px;padding:20px 24px;">
+    <div class="mono accent" style="font-size:10px;">Our prediction · to be graded in Issue 02</div>
+    <p style="color:#e6d2bd;font-family:'Fraunces',serif;font-size:21px;line-height:1.35;margin:8px 0 0;">Offshore sanctioning and FPSO/SURF backlog will keep rising through Q3 even if Brent stays soft, because the bids are tracking security and demand, not the spot price. If backlog falls with the oil price, we're wrong, and we'll say so.</p>
+    <p style="color:#7e93a3;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;margin-top:10px;">Grade against: Petrobras, SBM Offshore, Subsea7, and Saipem Q3 2026 earnings releases (Oct–Nov 2026). Rising backlog or book-to-bill above 1 through a soft Brent = right. Falling backlog with price = wrong.</p>
+  </div>
+
+  <div class="cta" style="background:#08151f;margin-top:30px;">
+    <div>
+      <div class="pip">Coming in Issue 02 · August 2026</div>
+      <h4>The Map Changed.</h4>
+      <p>Brussels sanctioned Indonesia. The oil is still moving. Three stories on how the shadow fleet is rewriting energy geopolitics. Subscribe free at bravoenergy.co/intelligence.</p>
+    </div>
+    <div class="arrow">→</div>
+  </div>
+  <div class="footer"><span style="color:#7e93a3;">The Takeaway</span><span style="color:#7e93a3;">08</span></div>
+</section>
+
+<!-- ============ ABOUT / SOURCES ============ -->
+<section class="page">
+  <div class="runhead"><span class="mono">Deep Water Intelligence</span><span class="mono">About &amp; Sources</span></div>
+  <div class="kicker mono">About this report</div>
+  <h2 class="disp">About <i>Deep Water Intelligence</i>.</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div>
+      <p class="lead">Deep Water Intelligence is Bravo Energy's free monthly read on the offshore energy industry. Each issue takes one idea and follows it through three connected stories, analysis you won't get from a data feed, built to explain what's actually going on beneath the headline numbers.</p>
+      <div class="label mono" style="margin-top:22px;">The format</div>
+      <p style="font-size:16px;">One theme. Three two-page features that build on each other. A short framing up front, a takeaway at the close. Coverage is global, with a standing focus on APAC and Brazil. Free, monthly, no paywall. Subscribe at <span class="accent">bravoenergy.co/intelligence</span> and forward it on.</p>
+      <div class="label mono" style="margin-top:18px;">Development note</div>
+      <p style="font-size:13px;color:var(--muted);">Issue 01 prototype. Analysis is ours; the facts behind it are sourced at right.</p>
+    </div>
+    <div>
+      <div class="label mono">Sources, Issue 01</div>
+      <ul class="clean" style="font-size:13px;">
+        <li>Hormuz shock and price spike — Wendover Productions, "How the Iran War spiked oil prices"; Wikipedia, "2026 Strait of Hormuz crisis"; market reporting, Mar–May 2026</li>
+        <li>Oil-price control and shadow fleet — Maxinomics, "They can't let oil hit $200" / "You can't stop the flow of oil"</li>
+        <li>China AC units (2 of 5) — IEA "The Future of Cooling in China"; CHEAA 2025 Cooling Year report</li>
+        <li>LNG and Nord Stream — Maxinomics, "Why countries are pouring billions into LNG"</li>
+        <li>Petrodollar — Lock Stock Finance</li>
+        <li>Submarine cables (500+, 800,000+ miles, 95% data, $10 trillion/day) — TeleGeography Submarine Cable Map 2025–26; Seoul Economic Daily, June 2026; CSIS</li>
+        <li>SEAP FID and SBM Offshore — World Oil; Brazil Energy Insight, Apr 2026; OGJ</li>
+        <li>Venezuela reserves — DW Planet</li>
+      </ul>
+      <p style="font-size:13px;color:var(--muted);">© 2026 Bravo Energy · free to read and share · desk@bravoenergy.co</p>
+    </div>
+  </div>
+  <div class="footer"><span>About &amp; Sources</span><span>09</span></div>
+</section>
+
+<!-- ============ BACK COVER ============ -->
+<section class="page dark">
+  <div style="display:flex;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="border:1px solid var(--accent);color:var(--accent);width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;">B</div>
+      <span class="mono" style="color:var(--cream);">Bravo Energy</span>
+    </div>
+    <span class="mono accent">End of Issue · No. 01</span>
+  </div>
+  <div style="margin-top:80px;">
+    <div class="disp" style="font-size:120px;color:var(--accent);">B<span style="color:var(--blue);">.</span></div>
+    <p class="lead" style="color:#c7d5df;max-width:560px;margin-top:20px;">Deep Water Intelligence is the free monthly read of Bravo Energy, built for the operators, financiers, yards and tender teams making this industry's next thirty years. The report is the front door. Here's the rest of the house.</p>
+  </div>
+  <div class="two" style="margin-top:46px;gap:24px;">
+    <div style="border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:24px;">
+      <div class="pip mono accent">Bravo Experts Network</div>
+      <h3 class="disp" style="color:var(--cream);font-size:23px;margin:8px 0;">Talk to the people who've done it</h3>
+      <p style="color:#cdd9e2;font-size:14px;">Pick an advisor by job title, sector and seniority. Vetted offshore specialists, commercial, technical, market, on demand. <span class="accent">bravoenergy.co/experts</span></p>
+    </div>
+    <div style="border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:24px;">
+      <div class="pip mono accent">Bravo Tender Workspace</div>
+      <h3 class="disp" style="color:var(--cream);font-size:23px;margin:8px 0;">From ITT to submission-ready</h3>
+      <p style="color:#cdd9e2;font-size:14px;">Clarifications, contract-risk analysis, competitor evaluation, deliverables and a costed package, assembled. <span class="accent">bravoenergy.co/tender</span></p>
+    </div>
+  </div>
+  <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;padding-top:46px;border-top:1px solid rgba(255,255,255,.14);">
+    <div><div class="mono" style="color:var(--cream);margin-bottom:6px;">Subscribe — free</div><div class="mono" style="color:#8aa0b0;line-height:1.9;">bravoenergy.co/intelligence</div></div>
+    <div><div class="mono" style="color:var(--cream);margin-bottom:6px;">Next issue</div><div class="mono" style="color:#8aa0b0;line-height:1.9;">No. 02 · August 2026<br>The Map Changed</div></div>
+    <div><div class="mono" style="color:var(--cream);margin-bottom:6px;">Coverage</div><div class="mono" style="color:#8aa0b0;line-height:1.9;">Global · APAC + Brazil</div></div>
+  </div>
+  <div class="mono" style="color:#5d7184;margin-top:22px;letter-spacing:.1em;">© 2026 Bravo Energy · Free to read and share</div>
+</section>
+
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          

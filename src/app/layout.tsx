@@ -1,20 +1,40 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Newsreader, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Website Clone",
-  description: "Pixel-perfect website clone",
+  title: "Bravo Energy · Offshore intelligence platform",
+  description:
+    "The offshore intelligence platform for operators, contractors, investors and tender teams. Read the market, build the strategy, win the tender.",
+  openGraph: {
+    title: "Bravo Energy · Offshore intelligence platform",
+    description:
+      "Read the market, build the strategy, win the tender. Free monthly Deep Water Intelligence plus fixed-scope consulting.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -25,9 +45,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${newsreader.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full bg-[var(--bravo-cream)] text-[var(--bravo-ink)] font-sans">
+        {children}
+      </body>
     </html>
   );
 }
