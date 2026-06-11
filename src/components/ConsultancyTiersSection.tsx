@@ -169,19 +169,20 @@ const VLINE_STRONG = "rgba(255,255,255,0.50)";
 const VLINE_LIGHT = "rgba(255,255,255,0.14)";
 const LINE_OPACITIES = [VLINE_LIGHT, VLINE_STRONG, VLINE_LIGHT, VLINE_LIGHT, VLINE_STRONG, VLINE_LIGHT];
 
-// Diagonal layout: Strategy top-left → Sharing bottom-right
+// Diagonal layout (md+ only): Strategy top-left → Sharing bottom-right.
+// Below md the rows stack with normal padding — no horizontal scrolling.
 const PHASE_LAYOUT: Record<ConsultancyPhase, { pl: string; pr: string; py: string; justify: string; content: string }> = {
-  Strategy:    { pl: "pl-[1%]",  pr: "pr-[73%]", py: "py-3", justify: "justify-start", content: "content-start" },
-  Research:    { pl: "pl-[29%]", pr: "pr-[30%]", py: "py-3", justify: "justify-start", content: "content-start" },
-  Development: { pl: "pl-[43%]", pr: "pr-[29%]", py: "py-3", justify: "justify-start", content: "content-start" },
-  Sharing:     { pl: "pl-[72%]", pr: "pr-[1%]",  py: "py-3", justify: "justify-start", content: "content-start" },
+  Strategy:    { pl: "md:pl-[1%]",  pr: "md:pr-[73%]", py: "py-3", justify: "justify-start", content: "content-start" },
+  Research:    { pl: "md:pl-[29%]", pr: "md:pr-[30%]", py: "py-3", justify: "justify-start", content: "content-start" },
+  Development: { pl: "md:pl-[43%]", pr: "md:pr-[29%]", py: "py-3", justify: "justify-start", content: "content-start" },
+  Sharing:     { pl: "md:pl-[72%]", pr: "md:pr-[1%]",  py: "py-3", justify: "justify-start", content: "content-start" },
 };
 
 function PricingMatrix({ tier }: { tier: (typeof CONSULTANCY_TIERS)[number] }) {
   return (
-    <div className="mt-14 overflow-x-auto">
+    <div className="mt-14">
       <div
-        className="relative min-w-[600px]"
+        className="relative"
         style={{
           borderTop: `1px solid ${STRONG}`,
           borderBottom: `1px solid ${STRONG}`,
@@ -189,8 +190,8 @@ function PricingMatrix({ tier }: { tier: (typeof CONSULTANCY_TIERS)[number] }) {
           borderRight: `1px solid ${STRONG}`,
         }}
       >
-        {/* Vertical lines behind the boxes — start after the 44px label bar */}
-        <div className="pointer-events-none absolute inset-y-0 left-[44px] right-0 z-0">
+        {/* Vertical lines behind the boxes — start after the 44px label bar (md+ only) */}
+        <div className="pointer-events-none absolute inset-y-0 left-[44px] right-0 z-0 hidden md:block">
           {LINE_OPACITIES.map((color, i) => (
             <span
               key={i}
@@ -227,12 +228,22 @@ function PhaseRow({
 }) {
   return (
     <div
-      className="flex min-h-[130px]"
+      className="flex flex-col md:flex-row md:min-h-[130px]"
       style={isLast ? undefined : { borderBottom: `1px solid ${ROW_DIV}` }}
     >
-      {/* Rotated label bar */}
+      {/* Horizontal label bar (mobile) */}
       <div
-        className="flex w-[44px] shrink-0 items-center justify-center bg-[var(--bravo-cream)]"
+        className="flex md:hidden items-center bg-[var(--bravo-cream)] px-4 py-2"
+        style={{ borderBottom: `1px solid ${STRONG}` }}
+      >
+        <span className="font-mono text-[11px] tracking-[0.18em] text-[var(--ocean-ink)]">
+          {phase.toUpperCase()}
+        </span>
+      </div>
+
+      {/* Rotated label bar (md+) */}
+      <div
+        className="hidden md:flex w-[44px] shrink-0 items-center justify-center bg-[var(--bravo-cream)]"
         style={{ borderRight: `1px solid ${STRONG}` }}
       >
         <span
@@ -243,8 +254,8 @@ function PhaseRow({
         </span>
       </div>
 
-      {/* Boxes: diagonal positioning via phase-specific padding + alignment */}
-      <div className={`relative z-10 flex flex-1 flex-wrap gap-2 ${layout.pl} ${layout.pr} ${layout.py} ${layout.justify} ${layout.content}`}>
+      {/* Boxes: stacked with normal padding on mobile, diagonal positioning at md+ */}
+      <div className={`relative z-10 flex flex-1 flex-wrap gap-2 px-3 ${layout.pl} ${layout.pr} ${layout.py} ${layout.justify} ${layout.content}`}>
         {chips.map((chip) => (
           <DeliverableBox key={chip} label={chip} />
         ))}

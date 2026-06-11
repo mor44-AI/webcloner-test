@@ -12,7 +12,7 @@ export function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50 px-6 md:px-10 py-4 flex items-center justify-between">
       <a href="#hero" className="inline-flex items-center gap-3 text-[var(--bravo-cream)]">
         <BravoMark />
-        <span className="font-mono text-[11px]">BRAVO ENERGY</span>
+        <span className="font-mono text-[11px] whitespace-nowrap">BRAVO ENERGY</span>
       </a>
 
       {/* Frosted pill-box holding nav links + CTA */}
@@ -40,10 +40,10 @@ export function SiteHeader() {
           href="#tender"
           className="ml-1 inline-flex items-stretch overflow-hidden rounded-full border border-[var(--bravo-ink)]/30 text-sm transition-all hover:border-[var(--bravo-ink)]/70 hover:shadow-[0_0_10px_2px_rgba(180,130,70,0.35)]"
         >
-          <span className="flex items-center px-3 py-1.5 text-[var(--bravo-ink)]">
+          <span className="hidden md:flex items-center px-3 py-1.5 text-[var(--bravo-ink)] whitespace-nowrap">
             Tender Workspace
           </span>
-          <span className="flex items-center gap-1.5 px-3 py-1.5 bg-bravo-copper text-[var(--bravo-cream)] font-medium border-l border-[var(--bravo-ink)]/20">
+          <span className="flex items-center gap-1.5 px-3 py-1.5 bg-bravo-copper text-[var(--bravo-cream)] font-medium md:border-l border-[var(--bravo-ink)]/20 whitespace-nowrap">
             Get Started
           </span>
         </a>

@@ -40,7 +40,7 @@ function ProductRow({ product, reversed }: { product: ProductCardType; reversed:
         <a
           href={product.href}
           className={cn(
-            "group flex flex-1 flex-col rounded-[24px] border backdrop-blur p-10 transition-all",
+            "group flex flex-1 flex-col rounded-[24px] border backdrop-blur p-6 md:p-10 transition-all",
             muted
               ? "border-[var(--bravo-cream)]/12 bg-[var(--bravo-cream)]/[0.04] opacity-90 hover:opacity-100"
               : "border-[var(--bravo-cream)]/15 bg-[var(--bravo-cream)]/[0.08] hover:border-[var(--bravo-accent)] hover:shadow-[0_18px_40px_-22px_rgba(200,119,46,0.4)]"
@@ -62,7 +62,7 @@ function ProductRow({ product, reversed }: { product: ProductCardType; reversed:
 
       {/* Photo */}
       <div className={cn("flex flex-col", reversed ? "md:order-1" : "")}>
-        <div className="relative w-full flex-1 overflow-hidden rounded-[24px] bg-[var(--bravo-navy)] min-h-[420px]">
+        <div className="relative w-full flex-1 overflow-hidden rounded-[24px] bg-[var(--bravo-navy)] min-h-[260px] md:min-h-[420px]">
           <Image
             src={product.image}
             alt={product.imageAlt}

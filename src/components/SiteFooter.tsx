@@ -13,7 +13,7 @@ export function SiteFooter() {
           <p className="mt-4 font-mono text-[10px] text-[var(--bravo-cream)]/60">
             {OFFICES.map((o) => o.city).join(" · ")}
           </p>
-          <div className="mt-2 grid grid-cols-3 gap-x-4 max-w-md">
+          <div className="mt-2 grid grid-cols-1 gap-y-3 sm:grid-cols-3 gap-x-4 max-w-md">
             {OFFICES.map((o) => (
               <div key={o.city} className="text-xs text-[var(--bravo-cream)]/65 leading-snug">
                 <p className="font-serif text-[var(--bravo-cream)]">{o.city}</p>
