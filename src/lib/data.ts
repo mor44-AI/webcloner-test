@@ -23,7 +23,7 @@ export const HERO_BODY =
 export const HERO_PRIMARY_CTA = { label: "Read the latest issue", href: "#dwi-archive" };
 export const HERO_SUBSCRIBE = {
   placeholder: "you@company.com",
-  submitLabel: "Get early access",
+  submitLabel: "Get Tender Workspace Access",
 };
 
 /* Narrative: three pillars matching the hero headline */
@@ -59,9 +59,10 @@ export const NARRATIVE_LINKS = ["#dwi-archive", "#consultancy", "#tender"] as co
 
 /* Products overview */
 
-export const PRODUCTS_HEADLINE = "Two products today. One more next year.";
+export const PRODUCTS_HEADLINE = "Insight. Strategy. Execution.";
 export const PRODUCTS_INTRO =
-  "Free intelligence to read every month. Paid consulting when you need a custom answer. A tender workspace when you need to win one.";
+  "Free intelligence to read every month. Paid consulting when you need a custom answer.";
+export const PRODUCTS_INTRO_LINE2 = "A tender workspace when you need to win one.";
 
 export const PRODUCTS: ProductCard[] = [
   {
@@ -69,30 +70,36 @@ export const PRODUCTS: ProductCard[] = [
     kicker: "REPORTS",
     title: "The free monthly read of offshore energy.",
     description:
-      "One theme, three stories, eleven pages. Delivered to your inbox the first week of every month. No paywall, no advertising.",
+      "One theme, three connected stories, eleven pages. Every issue tracks a single force reshaping the basin — capital flows, fleet moves, sanction lines, pricing shifts. Delivered to operators, investors and tender teams the first week of every month. No paywall, no advertising, no filler.",
     status: "available",
     statusLabel: "Available now",
     href: "#dwi-archive",
+    image: "/img/diver.jpg",
+    imageAlt: "Commercial diving helmet among cables on an offshore deck.",
   },
   {
     id: "consultancy",
     kicker: "BRAVO CONSULTANCY",
     title: "Pick a scope. Get a quote.",
     description:
-      "Market landscapes, competitor reads, tender strategy, due-diligence packs. Flat-fee engagements with a fixed timeline, not open-ended hours.",
+      "Our consultancy services starts with a defined question and ends with a deliverable that answers it. Market landscapes, competitor reads, tender strategy, due-diligence packs, all flat-fee with a fixed timeline. No hourly billing, no scope creep, no open-ended retainer. You know the cost and the deadline before we start.",
     status: "from-price",
     statusLabel: "From $12k · 2 to 6 weeks",
     href: "#consultancy",
+    image: "/img/gabriel-xavier-BOe6_uT-LMw-unsplash.jpg",
+    imageAlt: "Offshore platform silhouetted against a golden sunset.",
   },
   {
     id: "tender",
     kicker: "BRAVO TENDER WORKSPACE",
     title: "From ITT to submission-ready.",
     description:
-      "Clarifications log, contract-risk register, competitor scoring, deliverables tracker and a costed package, assembled in one place.",
+      "A Tender Workspace that holds every moving part of a tender response. Clarifications, costing model, contract analyzer, lessons learned and the full submission package. Built for the teams that have to win, not just bid.",
     status: "coming-soon",
     statusLabel: "Coming 2027 · join waitlist",
     href: "#tender",
+    image: "/img/fujidudez-P006DyDoIY4-unsplash.jpg",
+    imageAlt: "Offshore drillship at dusk with dramatic sky.",
   },
 ];
 
@@ -100,6 +107,8 @@ export const PRODUCTS: ProductCard[] = [
 
 export const DWI_KICKER = "REPORTS";
 export const DWI_HEADLINE = "Deep Water Intelligence";
+export const DWI_SUBTITLE =
+  "The free monthly read of offshore energy. Delivered to your inbox the first week of every month.";
 
 export const DWI_ISSUES: DwiIssue[] = [
   {
@@ -108,7 +117,7 @@ export const DWI_ISSUES: DwiIssue[] = [
     theme: "The Map Changed",
     dek:
       "The 2026 reshuffle of offshore capital, vessel fleets and sanction lines redrew where projects can actually get sanctioned. Eleven pages on what shifted and what shifts next.",
-    coverImage: "/dwi/issue-02.svg",
+    coverImage: "/img/planet-volumes-8koWngCqqzM-unsplash.jpg",
     href: "/dwi/issue-02.html",
   },
   {
@@ -117,7 +126,7 @@ export const DWI_ISSUES: DwiIssue[] = [
     theme: "The Security Premium",
     dek:
       "Insurance loadings, shadow-fleet exposure and sanction adjacency are quietly repricing every offshore project this year. We trace where the premium lands and who absorbs it.",
-    coverImage: "/dwi/issue-01.svg",
+    coverImage: "/img/diver.jpg",
     href: "/dwi/issue-01.html",
   },
 ];
@@ -184,19 +193,6 @@ export const CONSULTANCY_TIERS: ConsultancyTier[] = [
     startingPrice: "$28k",
     weeks: 6,
   },
-  {
-    id: "custom",
-    label: "CUSTOM",
-    blurb: "Something else? Tell us the question; we'll scope it.",
-    deliverables: {
-      Strategy: ["Scoping Call"],
-      Research: ["Scope-defined"],
-      Development: ["Scope-defined"],
-      Sharing: ["Scope-defined"],
-    },
-    startingPrice: "From $12k",
-    weeks: "custom",
-  },
 ];
 
 export const CONSULTANCY_WHY_COST =
@@ -207,8 +203,9 @@ export const CONSULTANCY_WHY_TIME =
 
 /* Tender Workspace */
 
-export const WAITLIST_KICKER = "BRAVO TENDER WORKSPACE · COMING 2027";
-export const WAITLIST_HEADLINE = "From ITT to submission-ready.";
+export const WAITLIST_KICKER = "BRAVO TENDER WORKSPACE";
+export const WAITLIST_HEADLINE =
+  "Bravo Tender Workspace lets you run an entire Tender from ITT to submission.";
 export const WAITLIST_INTRO =
   "Clarifications, contract-risk analysis, competitor evaluation, deliverables and a costed package, assembled in one workspace. We're inviting early users now.";
 
@@ -235,11 +232,7 @@ export const WAITLIST_FEATURES: WaitlistFeature[] = [
 
 /* Offices */
 
-export const OFFICES: Office[] = [
-  { city: "Singapore", focus: "ASEAN and Middle East" },
-  { city: "Paris", focus: "Africa, Europe, Mediterranean" },
-  { city: "Rio", focus: "Brazil, Argentina, GoM" },
-];
+export const OFFICES: Office[] = [];
 
 /* Footer */
 

@@ -3,19 +3,83 @@
 import { ArrowRight } from "@/components/icons";
 import { useFormspree } from "@/hooks/useFormspree";
 import { AutoplayVideo } from "@/components/AutoplayVideo";
+import { cn } from "@/lib/utils";
 import {
-  WAITLIST_FEATURES,
   WAITLIST_HEADLINE,
   WAITLIST_INTRO,
   WAITLIST_KICKER,
 } from "@/lib/data";
 
-/**
- * Tender Workspace section. Background is transparent (joins the page-wide
- * ocean gradient). A looped screen-capture video of the workspace is the
- * single centrepiece, followed by the three capability cards and the
- * early-access waitlist signup.
- */
+const WORKSPACE_MODULES: {
+  index: string;
+  label: string;
+  description: string;
+  featured?: boolean;
+}[] = [
+  {
+    index: "01",
+    label: "Clarifications",
+    description:
+      "Track every question raised to the client and every answer back. Versioned, exportable, and audit-friendly from day one of the ITT window.",
+  },
+  {
+    index: "02",
+    label: "Costing Estimator",
+    description:
+      "Build a fully costed submission with line-item rates, man-hour breakdowns and contingency flags. Locked to your baseline once submitted.",
+  },
+  {
+    index: "03",
+    label: "Risk & Opportunities",
+    description:
+      "Log every contract and execution risk with severity, owner and a recommended position. Opportunities tracked alongside so none fall through.",
+  },
+  {
+    index: "04",
+    label: "Competition",
+    description:
+      "Score known competitors by capability, pricing posture and track record. Updated as new intelligence arrives during the tender window.",
+  },
+  {
+    index: "05",
+    label: "Lessons Learned",
+    description:
+      "Capture what worked and what did not from past tenders. Surfaces automatically when a similar scope or client is detected.",
+  },
+  {
+    index: "06",
+    label: "Price Benchmark",
+    description:
+      "Compare your pricing against market day-rates, historical awards and competitor intelligence before you commit to a number.",
+  },
+  {
+    index: "07",
+    label: "Qualifications",
+    description:
+      "Track every certificate, reference project and accreditation needed for the submission. Status dashboard shows gaps at a glance.",
+  },
+  {
+    index: "08",
+    label: "Presentations",
+    description:
+      "Build and version client-facing presentations directly in the workspace. Linked to your live data so nothing is ever out of date.",
+  },
+  {
+    index: "09",
+    label: "Submission Package",
+    description:
+      "Assemble every deliverable — technical, commercial and contractual — into a single exportable package. One click from workspace to submission-ready.",
+    featured: true,
+  },
+];
+
+const EXPECT_BULLETS = [
+  "Immediate access to our platform to get started fast",
+  "Start Tendering in 5 minutes",
+  "Help docs and email support available within the app",
+  "Our team will follow up via email to answer any questions",
+];
+
 export function TenderWaitlistSection() {
   const formAction =
     process.env.NEXT_PUBLIC_FORMSPREE_NEWSLETTER_URL || "https://formspree.io/f/xbdeaokg";
@@ -34,74 +98,106 @@ export function TenderWaitlistSection() {
           <p className="text-[var(--bravo-cream)]/85 text-lg leading-relaxed">{WAITLIST_INTRO}</p>
         </div>
 
-        {/* Workspace demo video: the centrepiece */}
+        {/* Workspace demo video */}
         <figure className="mt-12 overflow-hidden rounded-[18px] border border-[var(--bravo-cream)]/15 bg-[var(--bravo-cream)]/[0.04] p-2 backdrop-blur md:p-3">
-          {/* 16:9 box reserves space so the video load causes no layout shift */}
           <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[12px] bg-[var(--bravo-navy)]">
             <AutoplayVideo
               src="/video/workspace.mp4"
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
-          <figcaption className="mt-3 px-1 font-mono text-[10px] text-[var(--bravo-cream)]/60">
-            INSIDE THE WORKSPACE · CLARIFICATIONS · CONTRACT RISK · SUBMISSION PACKAGE
-          </figcaption>
         </figure>
 
-        {/* Capability cards */}
-        <div className="mx-auto mt-20 grid grid-cols-1 gap-8 sm:grid-cols-3">
-          {WAITLIST_FEATURES.map((f) => (
+        {/* Workspace module cards — premium grid with index + serif title + description */}
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {WORKSPACE_MODULES.map((m) => (
             <div
-              key={f.index}
-              className="rounded-[16px] border border-[var(--bravo-cream)]/10 bg-[var(--bravo-cream)]/[0.04] backdrop-blur p-6"
+              key={m.label}
+              className={cn(
+                "rounded-[20px] border p-8 backdrop-blur transition-all",
+                m.featured
+                  ? "border-[var(--bravo-accent)]/55 bg-[var(--bravo-accent)]/10 hover:bg-[var(--bravo-accent)]/15"
+                  : "border-[var(--bravo-cream)]/15 bg-[var(--bravo-cream)]/[0.05] hover:border-[var(--bravo-cream)]/30"
+              )}
             >
-              <p className="font-mono text-[10px] text-[var(--bravo-accent)]">{f.index}</p>
-              <h3 className="mt-3 font-serif text-xl text-[var(--bravo-cream)]">{f.title}</h3>
-              <p className="mt-3 text-sm text-[var(--bravo-cream)]/70 leading-relaxed">{f.description}</p>
+              <p className="font-mono text-[10px] text-[var(--bravo-accent)] mb-5">
+                {m.index}
+              </p>
+              <h3
+                className={cn(
+                  "font-serif text-[1.4rem] leading-[1.2] tracking-[-0.01em] mb-4",
+                  m.featured ? "text-[var(--bravo-accent)]" : "text-[var(--bravo-cream)]"
+                )}
+              >
+                {m.label}
+              </h3>
+              <p className="text-[var(--bravo-cream)]/70 text-[14px] leading-relaxed">
+                {m.description}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* Waitlist signup */}
-        <div className="mx-auto mt-16 max-w-2xl text-center">
-          <p className="font-mono text-[10px] text-[var(--bravo-cream)]/55 mb-4">
-            EARLY ACCESS · COHORT INVITES ROLLING THROUGH 2027
-          </p>
-          <form
-            action={formAction}
-            method="POST"
-            onSubmit={handleSubmit}
-            className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center"
-          >
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="you@company.com"
-              className="flex-1 max-w-sm rounded-full bg-[var(--bravo-cream)]/10 border border-[var(--bravo-cream)]/20 px-5 py-3 text-[15px] text-[var(--bravo-cream)] placeholder:text-[var(--bravo-cream)]/40 outline-none focus:border-[var(--bravo-accent)]"
-            />
-            <button
-              type="submit"
-              disabled={status === "submitting"}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-bravo-copper px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60"
+        {/* Signup: form on the left, divider, "What to expect" on the right */}
+        <div className="mt-20 flex flex-col gap-10 md:flex-row md:items-start md:gap-0">
+          {/* Form */}
+          <div className="md:w-[380px] shrink-0">
+            <form
+              action={formAction}
+              method="POST"
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-3"
             >
-              Join the waitlist
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </form>
-          {status === "ok" && (
-            <p className="mt-3 font-mono text-[11px] text-[var(--bravo-accent)]" role="status">
-              ON THE LIST. COHORT INVITES ROLL OUT THROUGH 2027.
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="you@company.com"
+                className="w-full rounded-full bg-[var(--bravo-cream)]/10 border border-[var(--bravo-cream)]/20 px-5 py-3 text-[15px] text-[var(--bravo-cream)] placeholder:text-[var(--bravo-cream)]/40 outline-none focus:border-[var(--bravo-accent)]"
+              />
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-bravo-copper px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60"
+              >
+                Get Started
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
+            {status === "ok" && (
+              <p className="mt-3 font-mono text-[11px] text-[var(--bravo-accent)]" role="status">
+                ON THE LIST. COHORT INVITES ROLL OUT THROUGH 2027.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="mt-3 font-mono text-[11px] text-red-300" role="status">
+                SOMETHING WENT WRONG. PLEASE TRY AGAIN.
+              </p>
+            )}
+            <p className="mt-3 font-mono text-[10px] text-[var(--bravo-cream)]/45">
+              NO SPAM · UNSUBSCRIBE ANYTIME
             </p>
-          )}
-          {status === "error" && (
-            <p className="mt-3 font-mono text-[11px] text-red-300" role="status">
-              SOMETHING WENT WRONG. PLEASE TRY AGAIN.
+          </div>
+
+          {/* Vertical divider */}
+          <div className="hidden md:block w-px bg-[var(--bravo-cream)]/18 mx-12 self-stretch" />
+
+          {/* What to expect */}
+          <div className="flex-1">
+            <p className="font-mono text-[10px] tracking-[0.18em] text-[var(--bravo-cream)]/55 mb-4">
+              WHAT TO EXPECT
             </p>
-          )}
-          <p className="mt-3 font-mono text-[10px] text-[var(--bravo-cream)]/45">
-            NO SPAM · UNSUBSCRIBE ANYTIME
-          </p>
+            <ul className="space-y-3">
+              {EXPECT_BULLETS.map((bullet) => (
+                <li key={bullet} className="flex items-start gap-3">
+                  <span className="text-[var(--bravo-accent)] text-lg leading-none mt-0.5">°</span>
+                  <span className="text-[var(--bravo-cream)]/80 text-[15px] leading-relaxed">
+                    {bullet}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

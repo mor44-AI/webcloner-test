@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ArrowRight } from "@/components/icons";
-import { DWI_HEADLINE, DWI_ISSUES, DWI_KICKER } from "@/lib/data";
+import { DWI_HEADLINE, DWI_ISSUES, DWI_KICKER, DWI_SUBTITLE } from "@/lib/data";
 import type { DwiIssue } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +20,7 @@ export function DwiArchiveSection() {
             {DWI_HEADLINE}
           </h2>
           <div className="copper-rule" />
+          <p className="text-[var(--bravo-cream)]/80 text-lg leading-relaxed">{DWI_SUBTITLE}</p>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3">

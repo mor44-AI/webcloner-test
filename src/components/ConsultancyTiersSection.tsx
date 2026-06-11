@@ -11,19 +11,10 @@ import {
 import { CONSULTANCY_PHASES, type ConsultancyPhase } from "@/types";
 import { cn } from "@/lib/utils";
 
-/**
- * Consultancy section, faithful to the analogue-agency pricing reference:
- *   - "SELECT YOUR PROJECT" + tier buttons top-left, huge price numeral right.
- *   - A closed bordered matrix: rotated white category bars down the left,
- *     internal vertical column lines at varied opacities, deliverable boxes
- *     spread across each phase row (Research row ~2x the height of others).
- * Background is transparent so the page-wide ocean gradient shows through.
- */
 export function ConsultancyTiersSection() {
   const [tierId, setTierId] = useState(CONSULTANCY_TIERS[0].id);
   const tier = CONSULTANCY_TIERS.find((t) => t.id === tierId) ?? CONSULTANCY_TIERS[0];
-  const weeksLabel = tier.weeks === "custom" ? "CUSTOM" : `${tier.weeks} WEEKS`;
-  // Bare price: strip a leading "From " so numeric tiers show just "$18k".
+  const weeksLabel = `${tier.weeks} WEEKS`;
   const priceLabel = tier.startingPrice.replace(/^From\s+/i, "");
 
   const formAction =
@@ -33,18 +24,23 @@ export function ConsultancyTiersSection() {
   return (
     <section id="consultancy" className="py-24 md:py-32 text-[var(--bravo-cream)]">
       <div className="mx-auto max-w-[1200px] px-6 md:px-10">
-        {/* Heading */}
+
+        {/* Heading — same style as other sections */}
         <div className="max-w-3xl">
-          <p className="font-mono text-[11px] tracking-[0.18em] text-[var(--bravo-cream)]/70 mb-4">
+          <p className="font-mono text-[11px] text-[var(--bravo-accent)] mb-4">
             BRAVO CONSULTANCY
           </p>
           <h2 className="font-serif text-[clamp(2rem,3.8vw,3.2rem)] leading-[1.1] tracking-[-0.01em] text-[var(--bravo-cream)]">
             We believe in keeping things crystal clear, just like our pricing system.
           </h2>
+          <div className="copper-rule" />
+          <p className="text-[var(--bravo-cream)]/80 text-lg leading-relaxed">
+            Every engagement is a fixed price tied to a defined deliverable list. You know the cost, the scope and the deadline before we start.
+          </p>
         </div>
 
-        {/* Tier selector (left) + huge numeral (right), aligned at the top */}
-        <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto] md:items-start md:gap-12">
+        {/* Tier selector + price */}
+        <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto] md:items-end md:gap-12">
           <div>
             <p className="font-mono text-[11px] tracking-[0.18em] text-[var(--bravo-cream)]/65 mb-4">
               SELECT YOUR PROJECT
@@ -88,7 +84,7 @@ export function ConsultancyTiersSection() {
           </div>
         </div>
 
-        {/* The matrix */}
+        {/* Pricing matrix */}
         <PricingMatrix tier={tier} />
 
         {/* Justification */}
@@ -111,7 +107,7 @@ export function ConsultancyTiersSection() {
           </div>
         </div>
 
-        {/* Request a quote form */}
+        {/* Quote form */}
         <div className="mt-16 border-t border-[var(--bravo-cream)]/18 pt-12">
           <p className="font-mono text-[11px] tracking-[0.18em] text-[var(--bravo-cream)]/65">
             REQUEST A QUOTE
@@ -167,54 +163,74 @@ export function ConsultancyTiersSection() {
 /* Pricing matrix                                                          */
 /* ---------------------------------------------------------------------- */
 
-const STRONG = "rgba(255,255,255,0.55)";
-const LIGHT = "rgba(255,255,255,0.14)";
-// User-specified opacity sequence for the 6 internal vertical lines.
-const LINE_OPACITIES = [LIGHT, STRONG, LIGHT, LIGHT, STRONG, LIGHT];
+const STRONG = "rgba(255,255,255,0.50)";
+const ROW_DIV = "rgba(255,255,255,0.18)";
+const VLINE_STRONG = "rgba(255,255,255,0.50)";
+const VLINE_LIGHT = "rgba(255,255,255,0.14)";
+const LINE_OPACITIES = [VLINE_LIGHT, VLINE_STRONG, VLINE_LIGHT, VLINE_LIGHT, VLINE_STRONG, VLINE_LIGHT];
 
-function PricingMatrix({
-  tier,
-}: {
-  tier: (typeof CONSULTANCY_TIERS)[number];
-}) {
+// Diagonal layout: Strategy top-left → Sharing bottom-right
+const PHASE_LAYOUT: Record<ConsultancyPhase, { pl: string; pr: string; py: string; justify: string; content: string }> = {
+  Strategy:    { pl: "pl-[1%]",  pr: "pr-[73%]", py: "py-3", justify: "justify-start", content: "content-start" },
+  Research:    { pl: "pl-[29%]", pr: "pr-[30%]", py: "py-3", justify: "justify-start", content: "content-start" },
+  Development: { pl: "pl-[43%]", pr: "pr-[29%]", py: "py-3", justify: "justify-start", content: "content-start" },
+  Sharing:     { pl: "pl-[72%]", pr: "pr-[1%]",  py: "py-3", justify: "justify-start", content: "content-start" },
+};
+
+function PricingMatrix({ tier }: { tier: (typeof CONSULTANCY_TIERS)[number] }) {
   return (
-    <div className="mt-14">
-      {/* Closed box: strong white top/bottom/right borders; left edge = bars */}
+    <div className="mt-14 overflow-x-auto">
       <div
-        className="relative grid"
+        className="relative min-w-[600px]"
         style={{
-          gridTemplateRows: "1fr 2fr 1fr 1fr", // Research (row 2) ~2x the others
           borderTop: `1px solid ${STRONG}`,
           borderBottom: `1px solid ${STRONG}`,
+          borderLeft: `1px solid ${STRONG}`,
           borderRight: `1px solid ${STRONG}`,
         }}
       >
-        {/* Internal vertical lines, behind the deliverable boxes */}
+        {/* Vertical lines behind the boxes — start after the 44px label bar */}
         <div className="pointer-events-none absolute inset-y-0 left-[44px] right-0 z-0">
-          {LINE_OPACITIES.map((op, i) => (
+          {LINE_OPACITIES.map((color, i) => (
             <span
               key={i}
               className="absolute inset-y-0 w-px"
-              style={{
-                left: `${((i + 1) / 7) * 100}%`,
-                background: op,
-              }}
+              style={{ left: `${((i + 1) / 7) * 100}%`, background: color }}
             />
           ))}
         </div>
 
-        {CONSULTANCY_PHASES.map((phase) => (
-          <PhaseRow key={phase} phase={phase} chips={tier.deliverables[phase]} />
+        {CONSULTANCY_PHASES.map((phase, i) => (
+          <PhaseRow
+            key={phase}
+            phase={phase}
+            chips={tier.deliverables[phase]}
+            isLast={i === CONSULTANCY_PHASES.length - 1}
+            layout={PHASE_LAYOUT[phase]}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-function PhaseRow({ phase, chips }: { phase: ConsultancyPhase; chips: string[] }) {
+function PhaseRow({
+  phase,
+  chips,
+  isLast,
+  layout,
+}: {
+  phase: ConsultancyPhase;
+  chips: string[];
+  isLast: boolean;
+  layout: (typeof PHASE_LAYOUT)[ConsultancyPhase];
+}) {
   return (
-    <div className="relative flex min-h-[120px]">
-      {/* Rotated white category bar */}
+    <div
+      className="flex min-h-[130px]"
+      style={isLast ? undefined : { borderBottom: `1px solid ${ROW_DIV}` }}
+    >
+      {/* Rotated label bar */}
       <div
         className="flex w-[44px] shrink-0 items-center justify-center bg-[var(--bravo-cream)]"
         style={{ borderRight: `1px solid ${STRONG}` }}
@@ -227,8 +243,8 @@ function PhaseRow({ phase, chips }: { phase: ConsultancyPhase; chips: string[] }
         </span>
       </div>
 
-      {/* Deliverable boxes spread across the row, above the vertical lines */}
-      <div className="relative z-10 flex flex-1 flex-wrap content-start gap-3 p-4 md:p-6">
+      {/* Boxes: diagonal positioning via phase-specific padding + alignment */}
+      <div className={`relative z-10 flex flex-1 flex-wrap gap-2 ${layout.pl} ${layout.pr} ${layout.py} ${layout.justify} ${layout.content}`}>
         {chips.map((chip) => (
           <DeliverableBox key={chip} label={chip} />
         ))}
@@ -237,16 +253,9 @@ function PhaseRow({ phase, chips }: { phase: ConsultancyPhase; chips: string[] }
   );
 }
 
-/** Box height grows with label length so big-word items get more room. */
 function DeliverableBox({ label }: { label: string }) {
-  const big = label.length > 14;
   return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-[8px] border border-[var(--bravo-cream)]/40 px-4 font-mono text-[11px] tracking-[0.12em] uppercase text-[var(--bravo-cream)] transition-colors hover:border-[var(--bravo-cream)]/75",
-        big ? "min-h-[72px] py-4" : "min-h-[48px] py-3"
-      )}
-    >
+    <span className="inline-flex items-center justify-center rounded-[10px] border border-[var(--bravo-cream)]/40 px-3 py-4 font-mono text-[11px] tracking-[0.12em] uppercase text-[var(--bravo-cream)] transition-colors hover:border-[var(--bravo-cream)]/75 hover:bg-[var(--bravo-cream)]/[0.06] text-center leading-snug break-words max-w-[120px]">
       {label}
     </span>
   );

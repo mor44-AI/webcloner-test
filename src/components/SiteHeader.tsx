@@ -35,11 +35,17 @@ export function SiteHeader() {
         >
           Consultancy
         </a>
+        {/* Connected pill: TENDER WORKSPACE label + Get Started action */}
         <a
           href="#tender"
-          className="ml-1 inline-block rounded-full bg-bravo-copper px-4 py-1.5 text-sm font-medium hover:opacity-90 transition-opacity"
+          className="ml-1 inline-flex items-stretch overflow-hidden rounded-full border border-[var(--bravo-ink)]/30 text-sm transition-all hover:border-[var(--bravo-ink)]/70 hover:shadow-[0_0_10px_2px_rgba(180,130,70,0.35)]"
         >
-          Get Early Access
+          <span className="flex items-center px-3 py-1.5 text-[var(--bravo-ink)]">
+            Tender Workspace
+          </span>
+          <span className="flex items-center gap-1.5 px-3 py-1.5 bg-bravo-copper text-[var(--bravo-cream)] font-medium border-l border-[var(--bravo-ink)]/20">
+            Get Started
+          </span>
         </a>
       </nav>
     </header>

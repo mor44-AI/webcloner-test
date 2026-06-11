@@ -47,6 +47,8 @@ export interface ProductCard {
   status: "available" | "from-price" | "coming-soon";
   statusLabel: string;
   href: string;
+  image: string;
+  imageAlt: string;
 }
 
 export interface WaitlistFeature {
