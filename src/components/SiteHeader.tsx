@@ -18,7 +18,7 @@ export function SiteHeader() {
       {/* Frosted pill-box holding nav links + CTA */}
       <nav className="flex items-center gap-1 rounded-full border border-[var(--bravo-line)]/60 bg-[var(--bravo-cream)]/85 px-2 py-1.5 backdrop-blur">
         <a
-          href="#how"
+          href="#products"
           className="hidden sm:inline-block rounded-full px-3 py-1.5 text-sm text-[var(--bravo-ink)] hover:bg-[var(--bravo-cream2)]/70 transition-colors"
         >
           About

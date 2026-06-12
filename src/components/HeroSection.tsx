@@ -2,17 +2,19 @@
 
 import { OceanBackdrop } from "@/components/OceanBackdrop";
 import { BravoMarkLarge, ArrowRight } from "@/components/icons";
+import { useFormspree } from "@/hooks/useFormspree";
 import {
   HERO_BODY,
   HERO_HEADLINE_LINES,
   HERO_KICKER,
+  HERO_SUBSCRIBE,
 } from "@/lib/data";
 
-/**
- * Full-bleed hero with the ocean video as background. Three side-by-side CTAs:
- * Read the latest issue / Get a quote / Get Tender Workspace Access.
- */
 export function HeroSection() {
+  const newsletterAction =
+    process.env.NEXT_PUBLIC_FORMSPREE_NEWSLETTER_URL || "https://formspree.io/f/xbdeaokg";
+  const { status, handleSubmit } = useFormspree(newsletterAction);
+
   return (
     <section id="hero" className="relative w-full min-h-screen overflow-hidden">
       <OceanBackdrop />
@@ -40,24 +42,47 @@ export function HeroSection() {
             {HERO_BODY}
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href="#dwi-archive"
-              className="inline-flex items-center gap-2 rounded-full bg-bravo-copper px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+          <form
+            action={newsletterAction}
+            method="POST"
+            onSubmit={handleSubmit}
+            className="mt-10 flex items-center gap-1 rounded-full border border-[var(--bravo-cream)]/35 bg-[var(--bravo-navy)]/35 p-1 pl-4 backdrop-blur w-fit"
+          >
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder={HERO_SUBSCRIBE.placeholder}
+              className="bg-transparent outline-none text-sm text-[var(--bravo-cream)] placeholder:text-[var(--bravo-cream)]/50 w-44 sm:w-56"
+            />
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="inline-flex items-center gap-2 rounded-full bg-bravo-copper px-5 py-2.5 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60"
             >
-              Read the latest issue
+              {HERO_SUBSCRIBE.submitLabel}
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </button>
+          </form>
 
-            <a
-              href="#consultancy"
-              className="inline-flex items-center gap-2 rounded-full border border-[var(--bravo-cream)]/40 px-6 py-3 text-sm font-medium text-[var(--bravo-cream)] hover:border-[var(--bravo-cream)]/80 transition-colors"
-            >
-              Get a quote
-              <ArrowRight className="h-4 w-4" />
-            </a>
+          {status === "ok" && (
+            <p className="mt-4 font-mono text-[11px] text-[var(--bravo-accent)]" role="status">
+              ON THE LIST. THE NEXT ISSUE LANDS IN YOUR INBOX.
+            </p>
+          )}
+          {status === "error" && (
+            <p className="mt-4 font-mono text-[11px] text-red-300" role="status">
+              SOMETHING WENT WRONG. PLEASE TRY AGAIN.
+            </p>
+          )}
 
-          </div>
+          <a
+            href="#consultancy"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm text-[var(--bravo-cream)]/70 hover:text-[var(--bravo-cream)] transition-colors"
+          >
+            Get a quote
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
         </div>
 
         <div />

@@ -216,15 +216,7 @@
   }
   /* Continuous ocean-depth gradient for the whole post-hero page */
   .bg-ocean-depth {
-    background: linear-gradient(
-      180deg,
-      var(--ocean-0) 0%,
-      var(--ocean-1) 20%,
-      var(--ocean-2) 42%,
-      var(--ocean-3) 62%,
-      var(--ocean-4) 82%,
-      var(--ocean-5) 100%
-    );
+    background: #021D2A;
   }
   /* Copper rule used between heading and body, DWI .rule clone */
   .copper-rule {

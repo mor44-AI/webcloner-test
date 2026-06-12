@@ -18,9 +18,9 @@ const WORKSPACE_MODULES: {
 }[] = [
   {
     index: "01",
-    label: "Clarifications",
+    label: "Clarifications & Qualifications",
     description:
-      "Track every question raised to the client and every answer back. Versioned, exportable, and audit-friendly from day one of the ITT window.",
+      "Track every question to the client and every qualification commitment in one place.",
   },
   {
     index: "02",
@@ -42,30 +42,12 @@ const WORKSPACE_MODULES: {
   },
   {
     index: "05",
-    label: "Lessons Learned",
-    description:
-      "Capture what worked and what did not from past tenders. Surfaces automatically when a similar scope or client is detected.",
-  },
-  {
-    index: "06",
     label: "Price Benchmark",
     description:
       "Compare your pricing against market day-rates, historical awards and competitor intelligence before you commit to a number.",
   },
   {
-    index: "07",
-    label: "Qualifications",
-    description:
-      "Track every certificate, reference project and accreditation needed for the submission. Status dashboard shows gaps at a glance.",
-  },
-  {
-    index: "08",
-    label: "Presentations",
-    description:
-      "Build and version client-facing presentations directly in the workspace. Linked to your live data so nothing is ever out of date.",
-  },
-  {
-    index: "09",
+    index: "06",
     label: "Submission Package",
     description:
       "Assemble every deliverable — technical, commercial and contractual — into a single exportable package. One click from workspace to submission-ready.",
@@ -76,7 +58,6 @@ const WORKSPACE_MODULES: {
 const EXPECT_BULLETS = [
   "Immediate access to our platform to get started fast",
   "Start Tendering in 5 minutes",
-  "Help docs and email support available within the app",
   "Our team will follow up via email to answer any questions",
 ];
 

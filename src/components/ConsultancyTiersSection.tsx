@@ -5,8 +5,6 @@ import { ArrowRight } from "@/components/icons";
 import { useFormspree } from "@/hooks/useFormspree";
 import {
   CONSULTANCY_TIERS,
-  CONSULTANCY_WHY_COST,
-  CONSULTANCY_WHY_TIME,
 } from "@/lib/data";
 import { CONSULTANCY_PHASES, type ConsultancyPhase } from "@/types";
 import { cn } from "@/lib/utils";
@@ -40,7 +38,7 @@ export function ConsultancyTiersSection() {
         </div>
 
         {/* Tier selector + price */}
-        <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto] md:items-end md:gap-12">
+        <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-[1fr_auto] md:items-end md:gap-12">
           <div>
             <p className="font-mono text-[11px] tracking-[0.18em] text-[var(--bravo-cream)]/65 mb-4">
               SELECT YOUR PROJECT
@@ -87,24 +85,23 @@ export function ConsultancyTiersSection() {
         {/* Pricing matrix */}
         <PricingMatrix tier={tier} />
 
-        {/* Justification */}
-        <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
-          <div>
-            <p className="font-mono text-[11px] tracking-[0.18em] text-[var(--bravo-cream)]/65">
-              WHY DOES THIS COST?
-            </p>
-            <p className="mt-3 text-[var(--bravo-cream)]/90 text-[15px] leading-relaxed">
-              {CONSULTANCY_WHY_COST}
-            </p>
-          </div>
-          <div>
-            <p className="font-mono text-[11px] tracking-[0.18em] text-[var(--bravo-cream)]/65">
-              WHY DOES IT TAKE THIS LONG?
-            </p>
-            <p className="mt-3 text-[var(--bravo-cream)]/90 text-[15px] leading-relaxed">
-              {CONSULTANCY_WHY_TIME}
-            </p>
-          </div>
+        {/* What to expect */}
+        <div className="mt-16">
+          <p className="font-mono text-[10px] tracking-[0.18em] text-[var(--bravo-cream)]/55 mb-4">
+            WHAT TO EXPECT
+          </p>
+          <ul className="space-y-3">
+            {[
+              "Direct access to a senior team with 15+ years of hands-on offshore EPCI experience.",
+              "On-the-ground support for running tenders, analyzing competitors, and pricing winning bids.",
+              "Every engagement is senior-led. No juniors, no outsourced research.",
+            ].map((bullet) => (
+              <li key={bullet} className="flex items-start gap-3">
+                <span className="text-[var(--bravo-accent)] text-lg leading-none mt-0.5">°</span>
+                <span className="text-[var(--bravo-cream)]/80 text-[15px] leading-relaxed">{bullet}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Quote form */}
@@ -115,6 +112,7 @@ export function ConsultancyTiersSection() {
           <h3 className="mt-2 font-serif text-2xl md:text-3xl leading-[1.15] text-[var(--bravo-cream)]">
             Send us the brief. Fixed quote in two business days.
           </h3>
+
           <form
             action={formAction}
             method="POST"

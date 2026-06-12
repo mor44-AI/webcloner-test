@@ -19,11 +19,11 @@ export const HERO_HEADLINE_LINES = [
   "Win the Tender.",
 ] as const;
 export const HERO_BODY =
-  "Bravo Energy is the offshore intelligence platform for operators, contractors, investors and tender teams shaping the next thirty years of the industry.";
+  "Bravo Energy is the offshore intelligence platform for tender teams, BD leads and operators shaping the subsea industry";
 export const HERO_PRIMARY_CTA = { label: "Read the latest issue", href: "#dwi-archive" };
 export const HERO_SUBSCRIBE = {
   placeholder: "you@company.com",
-  submitLabel: "Get Tender Workspace Access",
+  submitLabel: "Read the Latest Issue",
 };
 
 /* Narrative: three pillars matching the hero headline */
@@ -33,7 +33,7 @@ export const NARRATIVE_CHAPTERS: NarrativeChapter[] = [
     kicker: "READ THE MARKET",
     headline: "What's moving in offshore, before everyone else.",
     body:
-      "Deep Water Intelligence is the free monthly read of Bravo Energy. One theme, three connected stories, eleven pages. It is how operators and investors find out what is shifting in the basin before the equity desks file.",
+      "Deep Water Intelligence is the free monthly read of Bravo Energy. One theme, three connected stories, eleven pages. It is how tender teams and BD leads at offshore contractors find out what is shifting in the basin before the competition does.",
     image: "/img/platform-sunset.jpg",
     imageAlt: "Offshore platform silhouetted on the horizon at sunset.",
   },
@@ -70,7 +70,7 @@ export const PRODUCTS: ProductCard[] = [
     kicker: "REPORTS",
     title: "The free monthly read of offshore energy.",
     description:
-      "One theme, three connected stories, eleven pages. Every issue tracks a single force reshaping the basin — capital flows, fleet moves, sanction lines, pricing shifts. Delivered to operators, investors and tender teams the first week of every month. No paywall, no advertising, no filler.",
+      "One theme, three connected stories, eleven pages. Every issue tracks a single force reshaping the basin — capital flows, fleet moves, sanction lines, pricing shifts. Delivered to tender teams and BD leads at offshore contractors the first week of every month. No paywall, no advertising, no filler.",
     status: "available",
     statusLabel: "Available now",
     href: "#dwi-archive",
@@ -206,8 +206,7 @@ export const CONSULTANCY_WHY_TIME =
 export const WAITLIST_KICKER = "BRAVO TENDER WORKSPACE";
 export const WAITLIST_HEADLINE =
   "Bravo Tender Workspace lets you run an entire Tender from ITT to submission.";
-export const WAITLIST_INTRO =
-  "Clarifications, contract-risk analysis, competitor evaluation, deliverables and a costed package, assembled in one workspace. We're inviting early users now.";
+export const WAITLIST_INTRO = "One workspace. Every moving part of a tender.";
 
 export const WAITLIST_FEATURES: WaitlistFeature[] = [
   {

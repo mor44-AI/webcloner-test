@@ -28,7 +28,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Bravo Energy · Offshore intelligence platform",
   description:
-    "The offshore intelligence platform for operators, contractors, investors and tender teams. Read the market, build the strategy, win the tender.",
+    "The offshore intelligence platform for tender teams, BD leads and operators shaping the subsea industry. Read the market, build the strategy, win the tender.",
   openGraph: {
     title: "Bravo Energy · Offshore intelligence platform",
     description:
